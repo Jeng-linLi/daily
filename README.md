@@ -24,7 +24,9 @@
 python 2026-09-21/union-find/solution.py
 
 # C++
-g++ -std=c++17 -O2 2026-09-21/union-find/solution.cpp -o /tmp/uf && /tmp/uf
+g++ -std=c++17 -O2 2026-09-21/union-find/solution.cpp -o solution && ./solution
 ```
+
+> Windows / MinGW 下不要把编译产物输出到 `/tmp`（链接器会报 No such file or directory），输出到当前目录即可。
 
 每个文件都自带断言测试，通过会输出 `all tests passed`。
