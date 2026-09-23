@@ -8,6 +8,9 @@
 
 | 日期 | 主题 | 语言 | 目录 |
 |---|---|---|---|
+| 2026-09-23 | 拓扑排序（Kahn + DFS 逆后序） | Python / C++ | [`2026-09-23/topological-sort`](2026-09-23/topological-sort) |
+| 2026-09-23 | 编辑距离（动态规划） | Python / C++ | [`2026-09-23/edit-distance`](2026-09-23/edit-distance) |
+| 2026-09-23 | 归并排序与逆序对计数（分治） | Python / C++ | [`2026-09-23/merge-sort-inversion-count`](2026-09-23/merge-sort-inversion-count) |
 | 2026-09-22 | 0-1 背包（动态规划） | Python / C++ | [`2026-09-22/knapsack-01`](2026-09-22/knapsack-01) |
 | 2026-09-22 | 滑动窗口最大值（单调队列） | Python / C++ | [`2026-09-22/sliding-window-maximum`](2026-09-22/sliding-window-maximum) |
 | 2026-09-22 | 线段树（区间和 + 懒标记） | Python / C++ | [`2026-09-22/segment-tree-range-sum`](2026-09-22/segment-tree-range-sum) |
