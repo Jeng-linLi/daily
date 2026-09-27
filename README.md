@@ -8,6 +8,9 @@
 
 | 日期 | 主题 | 语言 | 目录 |
 |---|---|---|---|
+| 2026-09-27 | 最长公共子序列（动态规划 + 回溯） | Python / C++ | [`2026-09-27/longest-common-subsequence`](2026-09-27/longest-common-subsequence) |
+| 2026-09-27 | 最小生成树（Kruskal + 并查集） | Python / C++ | [`2026-09-27/kruskal-mst`](2026-09-27/kruskal-mst) |
+| 2026-09-27 | 二分查找与二分答案（lower_bound / upper_bound） | Python / C++ | [`2026-09-27/binary-search`](2026-09-27/binary-search) |
 | 2026-09-23 | 拓扑排序（Kahn + DFS 逆后序） | Python / C++ | [`2026-09-23/topological-sort`](2026-09-23/topological-sort) |
 | 2026-09-23 | 编辑距离（动态规划） | Python / C++ | [`2026-09-23/edit-distance`](2026-09-23/edit-distance) |
 | 2026-09-23 | 归并排序与逆序对计数（分治） | Python / C++ | [`2026-09-23/merge-sort-inversion-count`](2026-09-23/merge-sort-inversion-count) |
