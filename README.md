@@ -8,6 +8,9 @@
 
 | 日期 | 主题 | 语言 | 目录 |
 |---|---|---|---|
+| 2026-09-28 | Bellman-Ford 最短路（负权边 + 负环检测） | Python / C++ | [`2026-09-28/bellman-ford`](2026-09-28/bellman-ford) |
+| 2026-09-28 | 单调栈（下一个更大元素 / 每日温度 / 最大矩形） | Python / C++ | [`2026-09-28/monotonic-stack`](2026-09-28/monotonic-stack) |
+| 2026-09-28 | 快速排序与快速选择（三路分区 + Quickselect） | Python / C++ | [`2026-09-28/quick-sort`](2026-09-28/quick-sort) |
 | 2026-09-27 | 最长公共子序列（动态规划 + 回溯） | Python / C++ | [`2026-09-27/longest-common-subsequence`](2026-09-27/longest-common-subsequence) |
 | 2026-09-27 | 最小生成树（Kruskal + 并查集） | Python / C++ | [`2026-09-27/kruskal-mst`](2026-09-27/kruskal-mst) |
 | 2026-09-27 | 二分查找与二分答案（lower_bound / upper_bound） | Python / C++ | [`2026-09-27/binary-search`](2026-09-27/binary-search) |
