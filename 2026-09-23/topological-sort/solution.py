@@ -1,36 +1,36 @@
-"""拓扑排序（Topological Sort，Kahn 算法 + DFS 逆后序）
+"""拓撲排序（Topological Sort，Kahn 算法 + DFS 逆後序）
 
-题意：给定一张 n 个点、m 条边的有向图（点编号 0..n-1），求一个拓扑序：
-    一个把所有点排成一列的顺序，使得对每条有向边 u -> v，u 都排在 v 之前。
-    若图中存在环，则不存在拓扑序，报告无解。
+題意：給定一張 n 個點、m 條邊的有向圖（點編號 0..n-1），求一個拓撲序：
+    一個把所有點排成一列的順序，使得對每條有向邊 u -> v，u 都排在 v 之前。
+    若圖中存在環，則不存在拓撲序，報告無解。
 
-思路（两种等价的实现）：
+思路（兩種等價的實現）：
 
-    1. Kahn 算法（BFS / 剥洋葱）：
-       不断把「入度为 0 的点」拿掉，拿掉一个点就把它指向的边的入度减一，
-       于是新的入度为 0 的点会出现。若最终拿掉了全部 n 个点，拿掉的先后顺序
-       就是一个拓扑序；若中途再也找不到入度为 0 的点却还剩点没拿，说明
-       剩下的点互相卡住——它们必定在一个环里。
-       用「最小堆」而不是普通队列来挑选入度为 0 的点，就得到**字典序最小**
-       的拓扑序；用普通队列则得到某个（取决于入边顺序的）合法拓扑序。
+    1. Kahn 算法（BFS / 剝洋蔥）：
+       不斷把「入度爲 0 的點」拿掉，拿掉一個點就把它指向的邊的入度減一，
+       於是新的入度爲 0 的點會出現。若最終拿掉了全部 n 個點，拿掉的先後順序
+       就是一個拓撲序；若中途再也找不到入度爲 0 的點卻還剩點沒拿，說明
+       剩下的點互相卡住——它們必定在一個環裏。
+       用「最小堆」而不是普通隊列來挑選入度爲 0 的點，就得到**字典序最小**
+       的拓撲序；用普通隊列則得到某個（取決於入邊順序的）合法拓撲序。
 
-    2. DFS 逆后序：
-       对图做深度优先搜索，在「一个点的所有后继都访问完之后」把该点压入栈，
-       最后把栈倒过来输出。正确性来自：DFS 的后序天然保证「后继先于前驱完成」，
-       反过来就是「前驱排在 successors 之前」。
-       检测环靠三色标记：递归栈上的点是灰色，若 DFS 走到灰色点说明有回边，即有环。
+    2. DFS 逆後序：
+       對圖做深度優先搜索，在「一個點的所有後繼都訪問完之後」把該點壓入棧，
+       最後把棧倒過來輸出。正確性來自：DFS 的後序天然保證「後繼先於前驅完成」，
+       反過來就是「前驅排在 successors 之前」。
+       檢測環靠三色標記：遞歸棧上的點是灰色，若 DFS 走到灰色點說明有回邊，即有環。
 
-    两者的一致性与差异：Kahn 是迭代的（不会有递归深度问题），还能顺手判环；
-    DFS 版更短，但需要注意递归深度，且得到的序一般不是字典序最小的。
-    本文件用同一个固定邻接表（升序排列）驱动两种实现，保证结果可复现。
+    兩者的一致性與差異：Kahn 是迭代的（不會有遞歸深度問題），還能順手判環；
+    DFS 版更短，但需要注意遞歸深度，且得到的序一般不是字典序最小的。
+    本文件用同一個固定鄰接表（升序排列）驅動兩種實現，保證結果可復現。
 
-输入格式（stdin）：
+輸入格式（stdin）：
     第一行：n m
-    接下来 m 行：u v（一条有向边 u -> v）
-输出格式（stdout）：
-    一行：若存在拓扑序，输出 n 个点编号（空格分隔，字典序最小的那个）；
-          若存在环，输出 -1
-无 stdin 输入时运行内置断言测试。
+    接下來 m 行：u v（一條有向邊 u -> v）
+輸出格式（stdout）：
+    一行：若存在拓撲序，輸出 n 個點編號（空格分隔，字典序最小的那個）；
+          若存在環，輸出 -1
+無 stdin 輸入時運行內置斷言測試。
 """
 
 import heapq
@@ -39,14 +39,14 @@ from typing import List, Optional, Tuple
 
 
 def kahn_topological_sort(n: int, edges: List[Tuple[int, int]]) -> Optional[List[int]]:
-    """Kahn 算法 + 最小堆，返回字典序最小的拓扑序；有环返回 None。时间 O((n+m) log n)。"""
+    """Kahn 算法 + 最小堆，返回字典序最小的拓撲序；有環返回 None。時間 O((n+m) log n)。"""
     adj: List[List[int]] = [[] for _ in range(n)]
     indeg = [0] * n
     for u, v in edges:
         adj[u].append(v)
         indeg[v] += 1
 
-    # 最小堆：每步取编号最小的入度 0 点 -> 结果字典序最小
+    # 最小堆：每步取編號最小的入度 0 點 -> 結果字典序最小
     heap = [i for i in range(n) if indeg[i] == 0]
     heapq.heapify(heap)
 
@@ -59,27 +59,27 @@ def kahn_topological_sort(n: int, edges: List[Tuple[int, int]]) -> Optional[List
             if indeg[v] == 0:
                 heapq.heappush(heap, v)
 
-    # 拿掉的点不足 n 个 -> 剩下的点都还在环里
+    # 拿掉的點不足 n 個 -> 剩下的點都還在環裏
     return order if len(order) == n else None
 
 
 def dfs_topological_sort(n: int, edges: List[Tuple[int, int]]) -> Optional[List[int]]:
-    """DFS 逆后序，返回一个合法拓扑序；有环返回 None。时间 O(n + m)。"""
+    """DFS 逆後序，返回一個合法拓撲序；有環返回 None。時間 O(n + m)。"""
     adj: List[List[int]] = [[] for _ in range(n)]
     for u, v in edges:
         adj[u].append(v)
     for lst in adj:
-        lst.sort()  # 邻接表升序，保证两版实现结果可复现
+        lst.sort()  # 鄰接表升序，保證兩版實現結果可復現
 
     WHITE, GRAY, BLACK = 0, 1, 2
     color = [WHITE] * n
     post: List[int] = []
 
-    # 迭代版 DFS：避免深图把 Python 递归栈打爆
+    # 迭代版 DFS：避免深圖把 Python 遞歸棧打爆
     for start in range(n):
         if color[start] != WHITE:
             continue
-        stack: List[Tuple[int, int]] = [(start, 0)]  # (当前点, 下一条要走的边下标)
+        stack: List[Tuple[int, int]] = [(start, 0)]  # (當前點, 下一條要走的邊下標)
         color[start] = GRAY
         while stack:
             u, idx = stack[-1]
@@ -87,23 +87,23 @@ def dfs_topological_sort(n: int, edges: List[Tuple[int, int]]) -> Optional[List[
                 stack[-1] = (u, idx + 1)
                 v = adj[u][idx]
                 if color[v] == GRAY:
-                    return None          # 回边 -> 有环
+                    return None          # 回邊 -> 有環
                 if color[v] == WHITE:
                     color[v] = GRAY
                     stack.append((v, 0))
             else:
                 color[u] = BLACK
-                post.append(u)           # 后继都已完成，本点才算完成
+                post.append(u)           # 後繼都已完成，本點才算完成
                 stack.pop()
 
-    post.reverse()                        # 逆后序即拓扑序
+    post.reverse()                        # 逆後序即拓撲序
     return post
 
 
 def is_valid_topological_order(
     n: int, edges: List[Tuple[int, int]], order: Optional[List[int]]
 ) -> bool:
-    """校验：是 n 个点的一个排列，且每条边 u -> v 都满足 u 在 v 之前。"""
+    """校驗：是 n 個點的一個排列，且每條邊 u -> v 都滿足 u 在 v 之前。"""
     if order is None or len(order) != n or sorted(order) != list(range(n)):
         return False
     pos = {v: i for i, v in enumerate(order)}
@@ -111,7 +111,7 @@ def is_valid_topological_order(
 
 
 def brute_lex_topological_order(n: int, edges: List[Tuple[int, int]]) -> Optional[List[int]]:
-    """对照用的全排列枚举，返回字典序最小的拓扑序；无解返回 None。仅用于 n 很小的测试。"""
+    """對照用的全排列枚舉，返回字典序最小的拓撲序；無解返回 None。僅用於 n 很小的測試。"""
     from itertools import permutations
 
     best: Optional[Tuple[int, ...]] = None
@@ -124,7 +124,7 @@ def brute_lex_topological_order(n: int, edges: List[Tuple[int, int]]) -> Optiona
 
 
 def run_io(data: str) -> None:
-    """按统一输入输出格式处理 stdin 数据。"""
+    """按統一輸入輸出格式處理 stdin 數據。"""
     tokens = data.split()
     if not tokens:
         return
@@ -145,39 +145,39 @@ def run_tests() -> None:
     assert brute_lex_topological_order(6, edges) == [0, 1, 2, 3, 5, 4]
     assert is_valid_topological_order(6, edges, dfs_topological_sort(6, edges))
 
-    # 有环：0 -> 1 -> 2 -> 0
+    # 有環：0 -> 1 -> 2 -> 0
     cyc = [(0, 1), (1, 2), (2, 0)]
     assert kahn_topological_sort(3, cyc) is None
     assert dfs_topological_sort(3, cyc) is None
     assert brute_lex_topological_order(3, cyc) is None
 
-    # 自环
+    # 自環
     assert kahn_topological_sort(1, [(0, 0)]) is None
     assert dfs_topological_sort(1, [(0, 0)]) is None
 
-    # 空图：任意排列都是拓扑序。Kahn 用最小堆，得到字典序最小的 0 1 2 3；
-    # DFS 版按 start = 0,1,2,... 依次完成，逆后序恰好是 3 2 1 0，同样是合法拓扑序
+    # 空圖：任意排列都是拓撲序。Kahn 用最小堆，得到字典序最小的 0 1 2 3；
+    # DFS 版按 start = 0,1,2,... 依次完成，逆後序恰好是 3 2 1 0，同樣是合法拓撲序
     assert kahn_topological_sort(0, []) == []
     assert kahn_topological_sort(4, []) == [0, 1, 2, 3]
     assert dfs_topological_sort(4, []) == [3, 2, 1, 0]
     assert is_valid_topological_order(4, [], dfs_topological_sort(4, []))
 
-    # 单点无边
+    # 單點無邊
     assert kahn_topological_sort(1, []) == [0]
 
-    # 重边不应导致入度被多减（入度按「边的条数」计数，去重才不会出错）
+    # 重邊不應導致入度被多減（入度按「邊的條數」計數，去重才不會出錯）
     assert kahn_topological_sort(2, [(0, 1), (0, 1)]) == [0, 1]
     assert dfs_topological_sort(2, [(0, 1), (0, 1)]) == [0, 1]
 
-    # 链：1 -> 2 -> 3，孤立点 0 排最前
+    # 鏈：1 -> 2 -> 3，孤立點 0 排最前
     chain = [(1, 2), (2, 3)]
     assert kahn_topological_sort(4, chain) == [0, 1, 2, 3]
 
-    # 环 + 无环部分混合：只要有一个环就整体无解
+    # 環 + 無環部分混合：只要有一個環就整體無解
     assert kahn_topological_sort(4, [(0, 1), (1, 2), (2, 1), (0, 3)]) is None
 
-    # 与全排列暴力解随机对拍：校验 Kahn 的字典序最小性、DFS 结果的合法性、
-    # 以及两者「有解 / 无解」的判断必须一致
+    # 與全排列暴力解隨機對拍：校驗 Kahn 的字典序最小性、DFS 結果的合法性、
+    # 以及兩者「有解 / 無解」的判斷必須一致
     import random
 
     random.seed(20260923)
@@ -192,12 +192,12 @@ def run_tests() -> None:
         d = dfs_topological_sort(n, edges)
         b = brute_lex_topological_order(n, edges)
         assert k == b                                        # Kahn = 字典序最小
-        assert (k is None) == (d is None) == (b is None)     # 有解/无解判断一致
+        assert (k is None) == (d is None) == (b is None)     # 有解/無解判斷一致
         if k is not None:
             assert is_valid_topological_order(n, edges, k)
-            assert is_valid_topological_order(n, edges, d)   # DFS 结果也是合法拓扑序
+            assert is_valid_topological_order(n, edges, d)   # DFS 結果也是合法拓撲序
 
-    # 较大规模的链状图，验证迭代版 DFS 不会爆递归栈
+    # 較大規模的鏈狀圖，驗證迭代版 DFS 不會爆遞歸棧
     big_n = 20000
     big_edges = [(i, i + 1) for i in range(big_n - 1)]
     assert kahn_topological_sort(big_n, big_edges) == list(range(big_n))

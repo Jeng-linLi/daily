@@ -1,25 +1,25 @@
-"""滑动窗口最大值（单调队列 / Monotonic Queue）
+"""滑動窗口最大值（單調隊列 / Monotonic Queue）
 
-题意：给定数组 nums 和窗口大小 k，窗口从左向右每次滑动一格，
-    求每个窗口内的最大值，共 n-k+1 个结果。
+題意：給定數組 nums 和窗口大小 k，窗口從左向右每次滑動一格，
+    求每個窗口內的最大值，共 n-k+1 個結果。
 
 思路：
-    朴素做法是每个窗口扫一遍取最大，O(n*k)，k 大时会超时。
-    单调队列把它优化到 O(n)：
-      队列中保存的是"下标"，且对应的值严格递减（队首永远是当前窗口最大值）。
-      1) 入队前，从队尾弹出所有 <= 当前值的元素——它们既比当前值小、
-         又比当前值早出窗口，永远不可能成为答案，可以安全丢弃；
-      2) 入队当前下标；
-      3) 从队首弹出所有已滑出窗口的下标（下标 <= i-k）；
-      4) 当 i >= k-1 时，队首下标对应的值就是当前窗口最大值。
-    每个元素恰好入队一次、出队一次，所以总时间线性。
+    樸素做法是每個窗口掃一遍取最大，O(n*k)，k 大時會超時。
+    單調隊列把它優化到 O(n)：
+      隊列中保存的是"下標"，且對應的值嚴格遞減（隊首永遠是當前窗口最大值）。
+      1) 入隊前，從隊尾彈出所有 <= 當前值的元素——它們既比當前值小、
+         又比當前值早出窗口，永遠不可能成爲答案，可以安全丟棄；
+      2) 入隊當前下標；
+      3) 從隊首彈出所有已滑出窗口的下標（下標 <= i-k）；
+      4) 當 i >= k-1 時，隊首下標對應的值就是當前窗口最大值。
+    每個元素恰好入隊一次、出隊一次，所以總時間線性。
 
-输入格式（stdin）：
+輸入格式（stdin）：
     第一行 n k
-    第二行 n 个整数
-输出格式（stdout）：
-    一行 n-k+1 个整数，空格分隔，为各窗口最大值
-无 stdin 输入时运行内置断言测试。
+    第二行 n 個整數
+輸出格式（stdout）：
+    一行 n-k+1 個整數，空格分隔，爲各窗口最大值
+無 stdin 輸入時運行內置斷言測試。
 """
 
 import sys
@@ -28,7 +28,7 @@ from typing import List
 
 
 def max_sliding_window(nums: List[int], k: int) -> List[int]:
-    """返回长度为 k 的滑动窗口在每个位置的最大值，时间 O(n)，空间 O(k)。"""
+    """返回長度爲 k 的滑動窗口在每個位置的最大值，時間 O(n)，空間 O(k)。"""
     if not nums or k <= 0:
         return []
     if k == 1:
@@ -36,19 +36,19 @@ def max_sliding_window(nums: List[int], k: int) -> List[int]:
     if k >= len(nums):
         return [max(nums)]
 
-    q: deque = deque()  # 存下标，保证 nums[q[0]] > nums[q[1]] > ...
+    q: deque = deque()  # 存下標，保證 nums[q[0]] > nums[q[1]] > ...
     ans: List[int] = []
 
     for i, val in enumerate(nums):
-        # 1) 队尾所有不大于当前值的下标都不可能再成为答案
+        # 1) 隊尾所有不大於當前值的下標都不可能再成爲答案
         while q and nums[q[-1]] <= val:
             q.pop()
-        # 2) 当前下标入队
+        # 2) 當前下標入隊
         q.append(i)
-        # 3) 队首已滑出窗口的下标出队
+        # 3) 隊首已滑出窗口的下標出隊
         while q and q[0] <= i - k:
             q.popleft()
-        # 4) 窗口成型后，队首即最大值
+        # 4) 窗口成型後，隊首即最大值
         if i >= k - 1:
             ans.append(nums[q[0]])
 
@@ -56,7 +56,7 @@ def max_sliding_window(nums: List[int], k: int) -> List[int]:
 
 
 def run_io(data: str) -> None:
-    """按统一输入输出格式处理 stdin 数据。"""
+    """按統一輸入輸出格式處理 stdin 數據。"""
     tokens = data.split()
     if not tokens:
         return
@@ -66,7 +66,7 @@ def run_io(data: str) -> None:
 
 
 def brute_force(nums: List[int], k: int) -> List[int]:
-    """对照用的朴素实现，O(n*k)，仅用于测试验证。"""
+    """對照用的樸素實現，O(n*k)，僅用於測試驗證。"""
     return [max(nums[i:i + k]) for i in range(len(nums) - k + 1)]
 
 
@@ -74,16 +74,16 @@ def run_tests() -> None:
     assert max_sliding_window([1, 3, -1, -3, 5, 3, 6, 7], 3) == [3, 3, 5, 5, 6, 7]
     assert max_sliding_window([1], 1) == [1]
     assert max_sliding_window([1, -1], 1) == [1, -1]
-    assert max_sliding_window([9, 8, 7, 6, 5], 3) == [9, 8, 7]   # 递减：队首不断被挤出
-    assert max_sliding_window([1, 2, 3, 4, 5], 3) == [3, 4, 5]   # 递增：队尾不断被弹出
+    assert max_sliding_window([9, 8, 7, 6, 5], 3) == [9, 8, 7]   # 遞減：隊首不斷被擠出
+    assert max_sliding_window([1, 2, 3, 4, 5], 3) == [3, 4, 5]   # 遞增：隊尾不斷被彈出
     assert max_sliding_window([5, 5, 5, 5], 2) == [5, 5, 5]      # 全相等
     assert max_sliding_window([-7, -8, -7, -6, -5], 3) == [-7, -6, -5]
     assert max_sliding_window([1, 3, 1, 2, 0, 5], 3) == [3, 3, 2, 5]
     assert max_sliding_window([4, 3, 2, 1], 4) == [4]            # k == n
     assert max_sliding_window([4, 3, 2, 1], 5) == [4]            # k > n
-    assert max_sliding_window([], 3) == []                       # 空数组
+    assert max_sliding_window([], 3) == []                       # 空數組
 
-    # 与朴素实现随机对照：确保单调队列没有边界错误
+    # 與樸素實現隨機對照：確保單調隊列沒有邊界錯誤
     import random
     random.seed(20260922)
     for _ in range(200):

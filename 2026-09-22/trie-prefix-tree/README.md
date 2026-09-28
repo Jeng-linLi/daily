@@ -1,55 +1,55 @@
-# 前缀树（Trie / Prefix Tree）
+# 前綴樹（Trie / Prefix Tree）
 
-| 语言 | 文件 |
+| 語言 | 文件 |
 |---|---|
 | Python 3 | [`solution.py`](solution.py) |
 | C++17 | [`solution.cpp`](solution.cpp) |
 
-## 题意
+## 題意
 
-维护一个字符串集合，支持四种操作：
+維護一個字符串集合，支持四種操作：
 
-| 操作 | 含义 |
+| 操作 | 含義 |
 |---|---|
-| `insert(word)` | 插入单词 |
-| `search(word)` | 查询 `word` 是否被**完整**插入过 |
-| `startsWith(p)` | 查询是否存在以 `p` 为前缀的单词 |
-| `countPrefix(p)` | 统计已插入单词中以 `p` 为前缀的个数（重复插入计多次） |
+| `insert(word)` | 插入單詞 |
+| `search(word)` | 查詢 `word` 是否被**完整**插入過 |
+| `startsWith(p)` | 查詢是否存在以 `p` 爲前綴的單詞 |
+| `countPrefix(p)` | 統計已插入單詞中以 `p` 爲前綴的個數（重複插入計多次） |
 
 ## 思路
 
-Trie 是一棵「按字符分叉」的多叉树：从根到任一节点的路径拼起来就是一个前缀。
-每个节点维护四个字段：
+Trie 是一棵「按字符分叉」的多叉樹：從根到任一節點的路徑拼起來就是一個前綴。
+每個節點維護四個字段：
 
-- `children`：字符 → 子节点（Python 用字典，C++ 用 `unordered_map`，均支持任意字符集）；
-- `isEnd`：是否有单词在此节点结束——用来区分 `"app"` 与 `"apple"`；
-- `passCount`：有多少个已插入单词**经过**该节点，即该前缀的出现次数；
-- `endCount`：有多少个单词恰好在此结束，支持重复插入计数。
+- `children`：字符 → 子節點（Python 用字典，C++ 用 `unordered_map`，均支持任意字符集）；
+- `isEnd`：是否有單詞在此節點結束——用來區分 `"app"` 與 `"apple"`；
+- `passCount`：有多少個已插入單詞**經過**該節點，即該前綴的出現次數；
+- `endCount`：有多少個單詞恰好在此結束，支持重複插入計數。
 
-**插入**：从根出发逐字符走，缺节点就新建，沿途 `passCount` 全部 +1，终点置 `isEnd = true` 且 `endCount += 1`。
-**查询**：同样逐字符走，中途断掉即不存在；`search` 还要求终点 `isEnd` 为真。
+**插入**：從根出發逐字符走，缺節點就新建，沿途 `passCount` 全部 +1，終點置 `isEnd = true` 且 `endCount += 1`。
+**查詢**：同樣逐字符走，中途斷掉即不存在；`search` 還要求終點 `isEnd` 爲真。
 
-所有操作的复杂度只与字符串长度有关，与集合中已有单词数无关——这是 Trie 相对哈希表最大的优势，也是它能高效做「前缀统计 / 自动补全」的原因。
+所有操作的複雜度只與字符串長度有關，與集合中已有單詞數無關——這是 Trie 相對哈希表最大的優勢，也是它能高效做「前綴統計 / 自動補全」的原因。
 
-> 代价是空间：若字符集很大且字符串稀疏，Trie 会相当吃内存（可改用压缩 Trie / 双数组 Trie 优化）。
+> 代價是空間：若字符集很大且字符串稀疏，Trie 會相當喫內存（可改用壓縮 Trie / 雙數組 Trie 優化）。
 
-## 复杂度
+## 複雜度
 
-设字符串长度为 `L`：
+設字符串長度爲 `L`：
 
-| 操作 | 时间复杂度 | 说明 |
+| 操作 | 時間複雜度 | 說明 |
 |---|---|---|
-| `insert` | O(L) | 逐字符建/走节点 |
-| `search` | O(L) | 走到终点并检查 `isEnd` |
+| `insert` | O(L) | 逐字符建/走節點 |
+| `search` | O(L) | 走到終點並檢查 `isEnd` |
 | `startsWith` | O(L) | 能走通即可 |
-| `countPrefix` | O(L) | 直接读终点 `passCount`，无需遍历子树 |
+| `countPrefix` | O(L) | 直接讀終點 `passCount`，無需遍歷子樹 |
 
-空间复杂度 O(ΣL)，即所有已插入字符串的总字符数。
+空間複雜度 O(ΣL)，即所有已插入字符串的總字符數。
 
-## 输入输出
+## 輸入輸出
 
 ```text
-输入：                       输出：
+輸入：                       輸出：
 6                            false
 insert app                   true
 insert apple                 2
@@ -59,12 +59,12 @@ startsWith appl
 countPrefix appl
 ```
 
-- 第一行为操作条数 `n`，接下来 `n` 行每行 `操作 参数`。
-- `search` / `startsWith` 各输出一行 `true` / `false`；`countPrefix` 输出一行整数；`insert` 无输出。
-- Python 与 C++ 版本的输入输出格式完全一致。
-- 无 stdin 输入时，两个版本都会运行内置断言测试并输出 `all tests passed`。
+- 第一行爲操作條數 `n`，接下來 `n` 行每行 `操作 參數`。
+- `search` / `startsWith` 各輸出一行 `true` / `false`；`countPrefix` 輸出一行整數；`insert` 無輸出。
+- Python 與 C++ 版本的輸入輸出格式完全一致。
+- 無 stdin 輸入時，兩個版本都會運行內置斷言測試並輸出 `all tests passed`。
 
-## 运行
+## 運行
 
 ```bash
 python solution.py

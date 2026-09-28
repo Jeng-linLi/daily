@@ -1,20 +1,20 @@
-// Bellman-Ford 单源最短路（支持负权边 + 负环检测 + 路径还原）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// Bellman-Ford 單源最短路（支持負權邊 + 負環檢測 + 路徑還原）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 //
-// 思路：Dijkstra 依赖「已出队的点距离不再变小」这个贪心性质，有负权边就不成立。
-//   Bellman-Ford 的出发点是一个朴素事实：**一条最短路最多经过 n-1 条边**
-//   （再多就一定绕了环；正环/零环可以删掉，负环则根本不存在「最短路」）。
-//   于是把所有边整体松弛 n-1 轮即可；再多做一轮还能松弛就说明绕了负环 —— 这既是
-//   负环检测，也是 Bellman-Ford 相比 Dijkstra 的核心能力。
-//   要点：只松弛 dist[u] 有限的边；某一轮没有更新就提前退出；记录 pre 可还原最短路。
-//   SPFA（队列优化）只让「上一轮被更新过的点」继续松弛其出边，负环判据改成
-//   「某点入队次数 > n」。
-//   注意：负环必须**从 s 可达**才会被检测到；图另一头的负环与 s 无关。
+// 思路：Dijkstra 依賴「已出隊的點距離不再變小」這個貪心性質，有負權邊就不成立。
+//   Bellman-Ford 的出發點是一個樸素事實：**一條最短路最多經過 n-1 條邊**
+//   （再多就一定繞了環；正環/零環可以刪掉，負環則根本不存在「最短路」）。
+//   於是把所有邊整體鬆弛 n-1 輪即可；再多做一輪還能鬆弛就說明繞了負環 —— 這既是
+//   負環檢測，也是 Bellman-Ford 相比 Dijkstra 的核心能力。
+//   要點：只鬆弛 dist[u] 有限的邊；某一輪沒有更新就提前退出；記錄 pre 可還原最短路。
+//   SPFA（隊列優化）只讓「上一輪被更新過的點」繼續鬆弛其出邊，負環判據改成
+//   「某點入隊次數 > n」。
+//   注意：負環必須**從 s 可達**才會被檢測到；圖另一頭的負環與 s 無關。
 //
-// 输入（空白分隔）：n m s / 接着 m 行 u v w
-// 输出：第 1 行 1=存在 s 可达的负环、0=不存在；
-//       第 2 行（无负环时）dist[0]..dist[n-1]，空格分隔，不可达输出 INF
-// 无 stdin 输入时运行内置断言测试。
+// 輸入（空白分隔）：n m s / 接着 m 行 u v w
+// 輸出：第 1 行 1=存在 s 可達的負環、0=不存在；
+//       第 2 行（無負環時）dist[0]..dist[n-1]，空格分隔，不可達輸出 INF
+// 無 stdin 輸入時運行內置斷言測試。
 #include <algorithm>
 #include <cassert>
 #include <deque>
@@ -23,14 +23,14 @@
 
 using namespace std;
 
-const long long INF = (1LL << 60);   // 足够大，且 dist[u] + w 不会溢出
+const long long INF = (1LL << 60);   // 足夠大，且 dist[u] + w 不會溢出
 
 struct Edge {
     int u, v;
     long long w;
 };
 
-// Bellman-Ford：返回 has_neg_cycle，距离写入 dist，前驱写入 pre。时间 O(n·m)，空间 O(n)
+// Bellman-Ford：返回 has_neg_cycle，距離寫入 dist，前驅寫入 pre。時間 O(n·m)，空間 O(n)
 bool bellmanFord(int n, const vector<Edge>& edges, int s, vector<long long>& dist, vector<int>& pre) {
     dist.assign(n, INF);
     pre.assign(n, -1);
@@ -40,20 +40,20 @@ bool bellmanFord(int n, const vector<Edge>& edges, int s, vector<long long>& dis
     for (int it = 0; it < n; ++it) {
         bool changed = false;
         for (const Edge& e : edges) {
-            // 只从已可达的点往外松弛，避免 INF + w 污染结果
+            // 只從已可達的點往外鬆弛，避免 INF + w 污染結果
             if (dist[e.u] != INF && dist[e.u] + e.w < dist[e.v]) {
                 dist[e.v] = dist[e.u] + e.w;
                 pre[e.v] = e.u;
                 changed = true;
             }
         }
-        if (!changed) break;              // 这一轮没人被更新，后面也不可能再变
-        if (it == n - 1) hasNeg = true;   // 第 n 轮还能松弛 → 绕了负环
+        if (!changed) break;              // 這一輪沒人被更新，後面也不可能再變
+        if (it == n - 1) hasNeg = true;   // 第 n 輪還能鬆弛 → 繞了負環
     }
     return hasNeg;
 }
 
-// Bellman-Ford 的队列优化版（SPFA）。返回 has_neg_cycle，距离写入 dist
+// Bellman-Ford 的隊列優化版（SPFA）。返回 has_neg_cycle，距離寫入 dist
 bool spfa(int n, const vector<Edge>& edges, int s, vector<long long>& dist) {
     vector<vector<pair<int, long long>>> adj(n);
     for (const Edge& e : edges) adj[e.u].push_back({e.v, e.w});
@@ -80,7 +80,7 @@ bool spfa(int n, const vector<Edge>& edges, int s, vector<long long>& dist) {
                 if (!inq[v]) {
                     inq[v] = 1;
                     ++cnt[v];
-                    if (cnt[v] > n) return true;   // 入队超过 n 次 → 有负环
+                    if (cnt[v] > n) return true;   // 入隊超過 n 次 → 有負環
                     q.push_back(v);
                 }
             }
@@ -89,7 +89,7 @@ bool spfa(int n, const vector<Edge>& edges, int s, vector<long long>& dist) {
     return false;
 }
 
-// 沿前驱数组还原 s → t 的最短路；不可达返回空。时间 O(路径长度)
+// 沿前驅數組還原 s → t 的最短路；不可達返回空。時間 O(路徑長度)
 vector<int> buildPath(const vector<int>& pre, int s, int t) {
     if (t < 0 || t >= static_cast<int>(pre.size())) return {};
     vector<int> path;
@@ -105,7 +105,7 @@ vector<int> buildPath(const vector<int>& pre, int s, int t) {
     return {};
 }
 
-// 校验路径：返回 (每条边都存在, 路径总权重)
+// 校驗路徑：返回 (每條邊都存在, 路徑總權重)
 pair<bool, long long> pathWeight(const vector<Edge>& edges, const vector<int>& path) {
     long long total = 0;
     for (int i = 0; i + 1 < static_cast<int>(path.size()); ++i) {
@@ -124,9 +124,9 @@ pair<bool, long long> pathWeight(const vector<Edge>& edges, const vector<int>& p
     return {true, total};
 }
 
-// ---------------- 对照用的其他算法 ----------------
+// ---------------- 對照用的其他算法 ----------------
 
-// O(n^2) 版 Dijkstra，仅用于**非负权**图的对拍
+// O(n^2) 版 Dijkstra，僅用於**非負權**圖的對拍
 vector<long long> dijkstra(int n, const vector<Edge>& edges, int s) {
     vector<vector<pair<int, long long>>> adj(n);
     for (const Edge& e : edges) adj[e.u].push_back({e.v, e.w});
@@ -145,7 +145,7 @@ vector<long long> dijkstra(int n, const vector<Edge>& edges, int s) {
     return dist;
 }
 
-// Floyd-Warshall 全源最短路。返回 (图中是否存在任意负环, 距离矩阵)。时间 O(n^3)
+// Floyd-Warshall 全源最短路。返回 (圖中是否存在任意負環, 距離矩陣)。時間 O(n^3)
 pair<bool, vector<vector<long long>>> floydWarshall(int n, const vector<Edge>& edges) {
     vector<vector<long long>> d(n, vector<long long>(n, INF));
     for (int i = 0; i < n; ++i) d[i][i] = 0;
@@ -162,7 +162,7 @@ pair<bool, vector<vector<long long>>> floydWarshall(int n, const vector<Edge>& e
     return {hasNeg, d};
 }
 
-// 与 Python 版同规模的固定随机序列（LCG），两版各自独立与暴力解对拍
+// 與 Python 版同規模的固定隨機序列（LCG），兩版各自獨立與暴力解對拍
 struct LCG {
     unsigned long long s;
     LCG(unsigned long long seed) : s(seed) {}
@@ -191,7 +191,7 @@ int main() {
         bool hasNeg = bellmanFord(n, edges, s, dist, pre);
         cout << (hasNeg ? 1 : 0) << "\n";
         if (!hasNeg) {
-            for (int i = 0; i < n; ++i) {          // n = 0 时输出空行
+            for (int i = 0; i < n; ++i) {          // n = 0 時輸出空行
                 if (i) cout << " ";
                 if (dist[i] == INF) cout << "INF";
                 else cout << dist[i];
@@ -201,8 +201,8 @@ int main() {
         return 0;
     }
 
-    // 示例一：含负权边但无负环
-    //   0 -(4)-> 1 -(2)-> 3 -(2)-> 4 -(1)-> 1（正环，不影响）
+    // 示例一：含負權邊但無負環
+    //   0 -(4)-> 1 -(2)-> 3 -(2)-> 4 -(1)-> 1（正環，不影響）
     //   0 -(2)-> 2 -(-3)-> 1，所以 0→1 走 0→2→1 只需 -1
     {
         vector<Edge> e1 = {{0, 1, 4}, {0, 2, 2}, {2, 1, -3}, {1, 3, 2}, {2, 3, 5}, {3, 4, 2}, {4, 1, 1}};
@@ -218,7 +218,7 @@ int main() {
         assert((buildPath(pre, 0, 1) == vector<int>{0, 2, 1}));
     }
 
-    // 示例二：负环 1 -> 2 -> 1，权值和 -2，且从 0 可达
+    // 示例二：負環 1 -> 2 -> 1，權值和 -2，且從 0 可達
     {
         vector<Edge> e2 = {{0, 1, 1}, {1, 2, -3}, {2, 1, 1}};
         vector<long long> dist, distS;
@@ -227,7 +227,7 @@ int main() {
         assert(spfa(3, e2, 0, distS) == true);
     }
 
-    // 负环存在但**从 s 不可达**：不影响 s 的最短路，检测也应当报告「无」
+    // 負環存在但**從 s 不可達**：不影響 s 的最短路，檢測也應當報告「無」
     {
         vector<Edge> e3 = {{0, 1, 1}, {2, 3, -5}, {3, 2, 2}};
         vector<long long> dist, distS;
@@ -238,7 +238,7 @@ int main() {
         assert(spfa(4, e3, 0, distS) == false);
     }
 
-    // 自环：负权 → 负环；零权 / 正权 → 不是负环
+    // 自環：負權 → 負環；零權 / 正權 → 不是負環
     {
         vector<long long> d;
         vector<int> p;
@@ -247,7 +247,7 @@ int main() {
         assert(bellmanFord(1, {{0, 0, 5}}, 0, d, p) == false);
     }
 
-    // 边界：单点无边 / 无边图 / 空图
+    // 邊界：單點無邊 / 無邊圖 / 空圖
     {
         vector<long long> d;
         vector<int> p;
@@ -260,7 +260,7 @@ int main() {
         assert(d.empty() && p.empty());
     }
 
-    // 重边取最小：两条 0→1，权值 7 和 3
+    // 重邊取最小：兩條 0→1，權值 7 和 3
     {
         vector<long long> d;
         vector<int> p;
@@ -268,7 +268,7 @@ int main() {
         assert((d == vector<long long>{0, 3}));
     }
 
-    // 路径还原：链状图 0→1→2→3
+    // 路徑還原：鏈狀圖 0→1→2→3
     {
         vector<Edge> e6 = {{0, 1, 2}, {1, 2, 3}, {2, 3, 4}};
         vector<long long> d;
@@ -277,7 +277,7 @@ int main() {
         assert((d == vector<long long>{0, 2, 5, 9}));
         assert((buildPath(pre, 0, 3) == vector<int>{0, 1, 2, 3}));
         assert((buildPath(pre, 0, 0) == vector<int>{0}));
-        // 不可达的点还原不出路径
+        // 不可達的點還原不出路徑
         vector<Edge> e7 = {{2, 3, 1}};
         bellmanFord(4, e7, 0, d, pre);
         assert(buildPath(pre, 0, 3).empty());
@@ -285,7 +285,7 @@ int main() {
 
     LCG rng(20260928ULL);
 
-    // 随机对拍一：**非负权**图，与 O(n^2) Dijkstra 比对
+    // 隨機對拍一：**非負權**圖，與 O(n^2) Dijkstra 比對
     for (int t = 0; t < 400; ++t) {
         int n2 = rng.next(1, 8);
         int m2 = rng.next(0, n2 * 2);
@@ -296,11 +296,11 @@ int main() {
         vector<long long> dist;
         vector<int> pre;
         bool neg = bellmanFord(n2, edges, s2, dist, pre);
-        assert(!neg);                            // 非负权不可能有负环
+        assert(!neg);                            // 非負權不可能有負環
         assert(dist == dijkstra(n2, edges, s2));
     }
 
-    // 随机对拍二：**允许负权**，与 SPFA 互相印证，并用 Floyd 与最优性条件兜底
+    // 隨機對拍二：**允許負權**，與 SPFA 互相印證，並用 Floyd 與最優性條件兜底
     for (int t = 0; t < 400; ++t) {
         int n2 = rng.next(1, 7);
         int m2 = rng.next(0, n2 * 2);
@@ -313,18 +313,18 @@ int main() {
         vector<int> pre;
         bool neg = bellmanFord(n2, edges, s2, dist, pre);
         bool negS = spfa(n2, edges, s2, distS);
-        assert(neg == negS);                     // 两种判据必须一致
+        assert(neg == negS);                     // 兩種判據必須一致
 
-        if (neg) continue;                       // 有负环时距离无意义，只校验判据一致
+        if (neg) continue;                       // 有負環時距離無意義，只校驗判據一致
 
-        assert(dist == distS);                   // 两版距离必须一致
+        assert(dist == distS);                   // 兩版距離必須一致
         assert(dist[s2] == 0);
 
-        // 最优性条件：无负环时不存在还能被松弛的边（三角不等式成立）
+        // 最優性條件：無負環時不存在還能被鬆弛的邊（三角不等式成立）
         for (const Edge& e : edges)
             if (dist[e.u] != INF) assert(dist[e.u] + e.w >= dist[e.v]);
 
-        // 每个可达点的距离都必须对应一条真实存在的、权重相等的路径
+        // 每個可達點的距離都必須對應一條真實存在的、權重相等的路徑
         for (int v = 0; v < n2; ++v) {
             if (dist[v] == INF) {
                 assert(buildPath(pre, s2, v).empty());
@@ -336,7 +336,7 @@ int main() {
             assert(ok && w == dist[v]);
         }
 
-        // 与 Floyd-Warshall 交叉验证（只在整张图都没有负环时才可比）
+        // 與 Floyd-Warshall 交叉驗證（只在整張圖都沒有負環時才可比）
         auto [hasNegAny, mat] = floydWarshall(n2, edges);
         if (!hasNegAny)
             for (int v = 0; v < n2; ++v) assert(dist[v] == mat[s2][v]);

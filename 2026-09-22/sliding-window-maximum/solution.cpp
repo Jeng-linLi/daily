@@ -1,17 +1,17 @@
-// 滑动窗口最大值（单调队列 / Monotonic Queue）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// 滑動窗口最大值（單調隊列 / Monotonic Queue）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 //
-// 思路：朴素做法每个窗口扫一遍取最大是 O(n*k)，k 大时超时。
-//   单调队列优化到 O(n)：队列存"下标"，对应值严格递减，队首永远是当前窗口最大值。
-//   1) 入队前从队尾弹出所有 <= 当前值的下标——它们既更小、又更早出窗口，永远不可能成为答案；
-//   2) 当前下标入队；
-//   3) 从队首弹出所有已滑出窗口的下标（下标 <= i-k）；
-//   4) i >= k-1 时，队首下标对应的值即为当前窗口最大值。
-//   每个元素恰好入队一次、出队一次，故总时间线性。
+// 思路：樸素做法每個窗口掃一遍取最大是 O(n*k)，k 大時超時。
+//   單調隊列優化到 O(n)：隊列存"下標"，對應值嚴格遞減，隊首永遠是當前窗口最大值。
+//   1) 入隊前從隊尾彈出所有 <= 當前值的下標——它們既更小、又更早出窗口，永遠不可能成爲答案；
+//   2) 當前下標入隊；
+//   3) 從隊首彈出所有已滑出窗口的下標（下標 <= i-k）；
+//   4) i >= k-1 時，隊首下標對應的值即爲當前窗口最大值。
+//   每個元素恰好入隊一次、出隊一次，故總時間線性。
 //
-// 输入：第一行 n k；第二行 n 个整数
-// 输出：一行 n-k+1 个整数，空格分隔，为各窗口最大值
-// 无 stdin 输入时运行内置断言测试。
+// 輸入：第一行 n k；第二行 n 個整數
+// 輸出：一行 n-k+1 個整數，空格分隔，爲各窗口最大值
+// 無 stdin 輸入時運行內置斷言測試。
 #include <cassert>
 #include <deque>
 #include <iostream>
@@ -19,7 +19,7 @@
 
 using namespace std;
 
-// 返回长度为 k 的滑动窗口在每个位置的最大值，时间 O(n)，空间 O(k)
+// 返回長度爲 k 的滑動窗口在每個位置的最大值，時間 O(n)，空間 O(k)
 vector<int> maxSlidingWindow(const vector<int>& nums, int k) {
     vector<int> ans;
     int n = static_cast<int>(nums.size());
@@ -32,21 +32,21 @@ vector<int> maxSlidingWindow(const vector<int>& nums, int k) {
         return ans;
     }
 
-    deque<int> q;  // 存下标，保证 nums[q.front()] > nums[q.back()]
+    deque<int> q;  // 存下標，保證 nums[q.front()] > nums[q.back()]
     for (int i = 0; i < n; ++i) {
-        // 1) 队尾所有不大于当前值的下标都不可能再成为答案
+        // 1) 隊尾所有不大於當前值的下標都不可能再成爲答案
         while (!q.empty() && nums[q.back()] <= nums[i]) q.pop_back();
-        // 2) 当前下标入队
+        // 2) 當前下標入隊
         q.push_back(i);
-        // 3) 队首已滑出窗口的下标出队
+        // 3) 隊首已滑出窗口的下標出隊
         while (!q.empty() && q.front() <= i - k) q.pop_front();
-        // 4) 窗口成型后，队首即最大值
+        // 4) 窗口成型後，隊首即最大值
         if (i >= k - 1) ans.push_back(nums[q.front()]);
     }
     return ans;
 }
 
-// 对照用的朴素实现，O(n*k)，仅用于测试验证
+// 對照用的樸素實現，O(n*k)，僅用於測試驗證
 vector<int> bruteForce(const vector<int>& nums, int k) {
     vector<int> ans;
     int n = static_cast<int>(nums.size());
@@ -58,7 +58,7 @@ vector<int> bruteForce(const vector<int>& nums, int k) {
     return ans;
 }
 
-// 与 Python 版完全一致的固定随机序列，保证两版跑同一批用例
+// 與 Python 版完全一致的固定隨機序列，保證兩版跑同一批用例
 struct LCG {
     unsigned long long s;
     LCG(unsigned long long seed) : s(seed) {}
@@ -85,16 +85,16 @@ int main() {
     assert((maxSlidingWindow({1, 3, -1, -3, 5, 3, 6, 7}, 3) == vector<int>{3, 3, 5, 5, 6, 7}));
     assert((maxSlidingWindow({1}, 1) == vector<int>{1}));
     assert((maxSlidingWindow({1, -1}, 1) == vector<int>{1, -1}));
-    assert((maxSlidingWindow({9, 8, 7, 6, 5}, 3) == vector<int>{9, 8, 7}));   // 递减：队首不断被挤出
-    assert((maxSlidingWindow({1, 2, 3, 4, 5}, 3) == vector<int>{3, 4, 5}));   // 递增：队尾不断被弹出
+    assert((maxSlidingWindow({9, 8, 7, 6, 5}, 3) == vector<int>{9, 8, 7}));   // 遞減：隊首不斷被擠出
+    assert((maxSlidingWindow({1, 2, 3, 4, 5}, 3) == vector<int>{3, 4, 5}));   // 遞增：隊尾不斷被彈出
     assert((maxSlidingWindow({5, 5, 5, 5}, 2) == vector<int>{5, 5, 5}));      // 全相等
     assert((maxSlidingWindow({-7, -8, -7, -6, -5}, 3) == vector<int>{-7, -6, -5}));
     assert((maxSlidingWindow({1, 3, 1, 2, 0, 5}, 3) == vector<int>{3, 3, 2, 5}));
     assert((maxSlidingWindow({4, 3, 2, 1}, 4) == vector<int>{4}));            // k == n
     assert((maxSlidingWindow({4, 3, 2, 1}, 5) == vector<int>{4}));            // k > n
-    assert((maxSlidingWindow({}, 3) == vector<int>{}));                       // 空数组
+    assert((maxSlidingWindow({}, 3) == vector<int>{}));                       // 空數組
 
-    // 与朴素实现随机对照：确保单调队列没有边界错误
+    // 與樸素實現隨機對照：確保單調隊列沒有邊界錯誤
     LCG rng(20260922ULL);
     for (int t = 0; t < 200; ++t) {
         int len = rng.next(1, 40);

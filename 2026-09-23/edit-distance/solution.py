@@ -1,41 +1,41 @@
-"""编辑距离（Edit Distance / Levenshtein Distance，动态规划）
+"""編輯距離（Edit Distance / Levenshtein Distance，動態規劃）
 
-题意：给定两个字符串 a、b，允许三种操作：插入一个字符、删除一个字符、
-    把一个字符替换成另一个字符。求把 a 变成 b 所需的最少操作次数，
-    并给出一条达到该次数的操作序列。
+題意：給定兩個字符串 a、b，允許三種操作：插入一個字符、刪除一個字符、
+    把一個字符替換成另一個字符。求把 a 變成 b 所需的最少操作次數，
+    並給出一條達到該次數的操作序列。
 
 思路：
-    定义 dp[i][j] = 把 a 的前 i 个字符变成 b 的前 j 个字符的最少操作数。
-    看最后一个字符，只有三种「最后一步」：
-      删掉 a[i-1]        -> dp[i-1][j] + 1
+    定義 dp[i][j] = 把 a 的前 i 個字符變成 b 的前 j 個字符的最少操作數。
+    看最後一個字符，只有三種「最後一步」：
+      刪掉 a[i-1]        -> dp[i-1][j] + 1
       插入 b[j-1]        -> dp[i][j-1] + 1
       把 a[i-1] 改/保留  -> dp[i-1][j-1] + (a[i-1] != b[j-1])
-    三者取最小即为状态转移。边界 dp[0][j] = j（全插入）、dp[i][0] = i（全删除）。
+    三者取最小即爲狀態轉移。邊界 dp[0][j] = j（全插入）、dp[i][0] = i（全刪除）。
 
-    空间可压到一维：dp[j] 在扫描第 i 行时，「dp[j]」是上一行的 dp[i-1][j]、
-    「dp[j-1]」是刚算好的本行 dp[i][j-1]，而 dp[i-1][j-1] 被覆盖了，
-    所以需要用一个变量 prev_diag 把左上角的旧值随身带着往前滚。
+    空間可壓到一維：dp[j] 在掃描第 i 行時，「dp[j]」是上一行的 dp[i-1][j]、
+    「dp[j-1]」是剛算好的本行 dp[i][j-1]，而 dp[i-1][j-1] 被覆蓋了，
+    所以需要用一個變量 prev_diag 把左上角的舊值隨身帶着往前滾。
 
-    还原操作序列则必须保留二维表：从 dp[m][n] 往回走，
-    每步挑一个「能解释当前 dp 值」的前驱。为了让下标不出错，回溯是
-    **从后往前**生成操作的，因此操作的下标天然递减 —— 按生成顺序依次施加时，
-    每次改动都只影响下标 >= 当前下标的字符，已经处理过的更靠后的字符不会被挪动，
-    而更早的字符还没处理。所以「按下标递减顺序施加操作」这一套是自洽的：
-    每个下标都指的就是「施加这一操作时字符串里的位置」。
+    還原操作序列則必須保留二維表：從 dp[m][n] 往回走，
+    每步挑一個「能解釋當前 dp 值」的前驅。爲了讓下標不出錯，回溯是
+    **從後往前**生成操作的，因此操作的下標天然遞減 —— 按生成順序依次施加時，
+    每次改動都只影響下標 >= 當前下標的字符，已經處理過的更靠後的字符不會被挪動，
+    而更早的字符還沒處理。所以「按下標遞減順序施加操作」這一套是自洽的：
+    每個下標都指的就是「施加這一操作時字符串裏的位置」。
 
-    注意：编辑距离最短时操作序列通常不唯一（例如 horse -> ros 有多条长度 3 的
-    路径），回溯只保证给出其中一条；测试因此只断言「操作次数等于最优值」且
-    「照着做一遍确实得到 b」，不锁死具体是哪条路径。
+    注意：編輯距離最短時操作序列通常不唯一（例如 horse -> ros 有多條長度 3 的
+    路徑），回溯只保證給出其中一條；測試因此只斷言「操作次數等於最優值」且
+    「照着做一遍確實得到 b」，不鎖死具體是哪條路徑。
 
-输入格式（stdin）：
+輸入格式（stdin）：
     第一行：字符串 a
-    第二行：字符串 b（可以为空行）
-输出格式（stdout）：
-    第一行：最少操作次数
-    接下来每行一条操作：replace <下标> <字符> / delete <下标> / insert <下标> <字符>
-    （下标为 0-based，指施加该操作时字符串中的位置；insert 表示插到该位置之前；
-      两个串本来就相等时不输出任何操作行）
-无 stdin 输入时运行内置断言测试。
+    第二行：字符串 b（可以爲空行）
+輸出格式（stdout）：
+    第一行：最少操作次數
+    接下來每行一條操作：replace <下標> <字符> / delete <下標> / insert <下標> <字符>
+    （下標爲 0-based，指施加該操作時字符串中的位置；insert 表示插到該位置之前；
+      兩個串本來就相等時不輸出任何操作行）
+無 stdin 輸入時運行內置斷言測試。
 """
 
 import sys
@@ -44,30 +44,30 @@ from typing import List, Tuple
 
 
 def edit_distance(a: str, b: str) -> int:
-    """一维滚动数组版，只求最少操作次数。时间 O(m*n)，空间 O(min(m, n)) 级。"""
-    # 让 b 成为较短的那个，滚动数组更省空间（也顺手少算一点）
+    """一維滾動數組版，只求最少操作次數。時間 O(m*n)，空間 O(min(m, n)) 級。"""
+    # 讓 b 成爲較短的那個，滾動數組更省空間（也順手少算一點）
     if len(a) < len(b):
         a, b = b, a
     m, n = len(a), len(b)
 
-    dp = list(range(n + 1))          # dp[0][j] = j：空串变 b 的前 j 个字符，全插入
+    dp = list(range(n + 1))          # dp[0][j] = j：空串變 b 的前 j 個字符，全插入
     for i in range(1, m + 1):
         prev_diag = dp[0]            # 上一行的 dp[i-1][0]，即左上角
-        dp[0] = i                    # dp[i][0] = i：a 的前 i 个字符变空串，全删除
+        dp[0] = i                    # dp[i][0] = i：a 的前 i 個字符變空串，全刪除
         for j in range(1, n + 1):
-            tmp = dp[j]              # 更新前是 dp[i-1][j]，更新后要交给下一轮的 prev_diag
+            tmp = dp[j]              # 更新前是 dp[i-1][j]，更新後要交給下一輪的 prev_diag
             cost = 0 if a[i - 1] == b[j - 1] else 1
             dp[j] = min(
-                tmp + 1,             # 删除 a[i-1]
-                dp[j - 1] + 1,       # 插入 b[j-1]（本行刚算好）
-                prev_diag + cost,    # 替换或保持
+                tmp + 1,             # 刪除 a[i-1]
+                dp[j - 1] + 1,       # 插入 b[j-1]（本行剛算好）
+                prev_diag + cost,    # 替換或保持
             )
             prev_diag = tmp
     return dp[n]
 
 
 def edit_distance_with_ops(a: str, b: str) -> Tuple[int, List[Tuple]]:
-    """保留二维表并回溯出一条操作序列。时间 O(m*n)，空间 O(m*n)。"""
+    """保留二維表並回溯出一條操作序列。時間 O(m*n)，空間 O(m*n)。"""
     m, n = len(a), len(b)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
     for i in range(m + 1):
@@ -80,12 +80,12 @@ def edit_distance_with_ops(a: str, b: str) -> Tuple[int, List[Tuple]]:
             cost = 0 if a[i - 1] == b[j - 1] else 1
             dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost)
 
-    # 从 dp[m][n] 回溯。操作下标递减，故按生成顺序施加即为合法顺序。
+    # 從 dp[m][n] 回溯。操作下標遞減，故按生成順序施加即爲合法順序。
     ops: List[Tuple] = []
     i, j = m, n
     while i > 0 or j > 0:
         if i > 0 and j > 0 and a[i - 1] == b[j - 1] and dp[i][j] == dp[i - 1][j - 1]:
-            i -= 1                                    # 字符相同，免费保留
+            i -= 1                                    # 字符相同，免費保留
             j -= 1
         elif i > 0 and j > 0 and dp[i][j] == dp[i - 1][j - 1] + 1:
             ops.append(("replace", i - 1, b[j - 1]))  # 把 a[i-1] 改成 b[j-1]
@@ -95,16 +95,16 @@ def edit_distance_with_ops(a: str, b: str) -> Tuple[int, List[Tuple]]:
             ops.append(("insert", i, b[j - 1]))       # 在位置 i 之前插入 b[j-1]
             j -= 1
         elif i > 0 and dp[i][j] == dp[i - 1][j] + 1:
-            ops.append(("delete", i - 1))             # 删掉位置 i-1
+            ops.append(("delete", i - 1))             # 刪掉位置 i-1
             i -= 1
-        else:  # pragma: no cover - 理论上不可达，留作兜底
+        else:  # pragma: no cover - 理論上不可達，留作兜底
             raise AssertionError("backtrace stuck")
 
     return dp[m][n], ops
 
 
 def apply_ops(a: str, ops: List[Tuple]) -> str:
-    """按序施加操作，用于验证回溯出来的方案是否真的能把 a 变成 b。"""
+    """按序施加操作，用於驗證回溯出來的方案是否真的能把 a 變成 b。"""
     chars = list(a)
     for op in ops:
         if op[0] == "replace":
@@ -119,7 +119,7 @@ def apply_ops(a: str, ops: List[Tuple]) -> str:
 
 
 def format_ops(ops: List[Tuple]) -> List[str]:
-    """把操作元组渲染成统一输出文本。"""
+    """把操作元組渲染成統一輸出文本。"""
     lines = []
     for op in ops:
         if op[0] == "replace":
@@ -132,7 +132,7 @@ def format_ops(ops: List[Tuple]) -> List[str]:
 
 
 def edit_distance_brute(a: str, b: str) -> int:
-    """对照用的指数级递归（带记忆化），仅用于小规模测试验证。"""
+    """對照用的指數級遞歸（帶記憶化），僅用於小規模測試驗證。"""
 
     @lru_cache(maxsize=None)
     def go(i: int, j: int) -> int:
@@ -149,7 +149,7 @@ def edit_distance_brute(a: str, b: str) -> int:
 
 
 def run_io(data: str) -> None:
-    """按统一输入输出格式处理 stdin 数据。"""
+    """按統一輸入輸出格式處理 stdin 數據。"""
     lines = data.splitlines()
     a = lines[0] if len(lines) > 0 else ""
     b = lines[1] if len(lines) > 1 else ""
@@ -163,40 +163,40 @@ def run_tests() -> None:
     # README 中的示例：horse -> ros，最少 3 步
     dist, ops = edit_distance_with_ops("horse", "ros")
     assert dist == 3
-    assert len(ops) == 3                       # 操作条数确实等于最优值
-    assert apply_ops("horse", ops) == "ros"    # 照着做一遍真的能变成 ros
+    assert len(ops) == 3                       # 操作條數確實等於最優值
+    assert apply_ops("horse", ops) == "ros"    # 照着做一遍真的能變成 ros
     assert edit_distance("horse", "ros") == 3
     assert edit_distance_brute("horse", "ros") == 3
 
-    # 经典用例：intention -> execution，最少 5 步
+    # 經典用例：intention -> execution，最少 5 步
     assert edit_distance("intention", "execution") == 5
     assert edit_distance_with_ops("intention", "execution")[0] == 5
 
-    # 完全相同：0 步，不产生任何操作
+    # 完全相同：0 步，不產生任何操作
     assert edit_distance("abc", "abc") == 0
     assert edit_distance_with_ops("abc", "abc") == (0, [])
     assert edit_distance("", "") == 0
 
-    # 一边为空：只能全插 / 全删
+    # 一邊爲空：只能全插 / 全刪
     assert edit_distance("", "abc") == 3
     assert edit_distance("abc", "") == 3
     assert edit_distance_with_ops("", "abc")[0] == 3
     assert apply_ops("", edit_distance_with_ops("", "abc")[1]) == "abc"
     assert apply_ops("abc", edit_distance_with_ops("abc", "")[1]) == ""
 
-    # 只差一个字符：1 步替换
+    # 只差一個字符：1 步替換
     assert edit_distance("kitten", "sitten") == 1
-    # kitten -> sitting：3 步（替换 e->i? 实为 k->s、e->i、末尾插入 g）
+    # kitten -> sitting：3 步（替換 e->i? 實爲 k->s、e->i、末尾插入 g）
     assert edit_distance("kitten", "sitting") == 3
 
-    # 大小写敏感，且长度差很大时退化为大量插入
+    # 大小寫敏感，且長度差很大時退化爲大量插入
     assert edit_distance("Ab", "ab") == 1
     assert edit_distance("a", "aaaa") == 3
 
-    # 纯插入（a 是 b 的子序列）：flaw -> lawns 之类
+    # 純插入（a 是 b 的子序列）：flaw -> lawns 之類
     assert edit_distance("abc", "axbyc") == 2
 
-    # 与记忆化暴力解随机对拍：同时校验「次数一致」与「操作序列可行且条数最优」
+    # 與記憶化暴力解隨機對拍：同時校驗「次數一致」與「操作序列可行且條數最優」
     import random
 
     random.seed(20260923)
@@ -207,11 +207,11 @@ def run_tests() -> None:
         d1 = edit_distance(a, b)
         d2, ops2 = edit_distance_with_ops(a, b)
         d3 = edit_distance_brute(a, b)
-        assert d1 == d2 == d3                  # 一维版 = 二维版 = 暴力版
-        assert len(ops2) == d2                 # 操作条数就是最优值
-        assert apply_ops(a, ops2) == b         # 照着做一遍确实得到 b
+        assert d1 == d2 == d3                  # 一維版 = 二維版 = 暴力版
+        assert len(ops2) == d2                 # 操作條數就是最優值
+        assert apply_ops(a, ops2) == b         # 照着做一遍確實得到 b
 
-    # 对称性与三角不等式（编辑距离的基本性质）
+    # 對稱性與三角不等式（編輯距離的基本性質）
     assert edit_distance("flaw", "lawn") == edit_distance("lawn", "flaw")
     for _ in range(50):
         x = "".join(random.choice(alphabet) for _ in range(random.randint(0, 6)))

@@ -1,8 +1,9 @@
-// Dijkstra 单源最短路（非负权图，二叉堆实现）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// Dijkstra 單源最短路（非負權圖，二叉堆實現）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <tuple>
 #include <limits>
 #include <cmath>
 #include <cassert>
@@ -11,26 +12,26 @@ using namespace std;
 
 const double INF = numeric_limits<double>::infinity();
 
-// graph[u] = {(v, w), ...} 为邻接表；返回长度 n 的距离数组
+// graph[u] = {(v, w), ...} 爲鄰接表；返回長度 n 的距離數組
 vector<double> dijkstra(int n, const vector<vector<pair<int, double>>>& graph, int start) {
     vector<double> dist(n, INF);
     vector<bool> visited(n, false);
     dist[start] = 0.0;
 
-    // 小根堆：greater 使队首为距离最小的元素
-    // 允许同一节点多次入堆，靠 visited 跳过过期条目（惰性删除）
+    // 小根堆：greater 使隊首爲距離最小的元素
+    // 允許同一節點多次入堆，靠 visited 跳過過期條目（惰性刪除）
     priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double, int>>> pq;
     pq.push({0.0, start});
 
     while (!pq.empty()) {
         auto [d, u] = pq.top();
         pq.pop();
-        if (visited[u]) continue;  // 该节点已定型，堆里这条是过期记录
+        if (visited[u]) continue;  // 該節點已定型，堆裏這條是過期記錄
         visited[u] = true;
         for (auto [v, w] : graph[u]) {
             if (visited[v]) continue;
             double nd = d + w;
-            if (nd < dist[v]) {  // 松弛
+            if (nd < dist[v]) {  // 鬆弛
                 dist[v] = nd;
                 pq.push({nd, v});
             }
@@ -39,7 +40,7 @@ vector<double> dijkstra(int n, const vector<vector<pair<int, double>>>& graph, i
     return dist;
 }
 
-// 便捷接口：传入无向边列表 (u, v, w)，返回 start→target 的最短距离；不可达返回 -1
+// 便捷接口：傳入無向邊列表 (u, v, w)，返回 start→target 的最短距離；不可達返回 -1
 double shortestPath(int n, const vector<tuple<int, int, double>>& edges, int start, int target) {
     vector<vector<pair<int, double>>> graph(n);
     for (auto& e : edges) {
@@ -61,10 +62,10 @@ int main() {
     };
     // 0→2→1→3→4 = 1+2+1+3 = 7
     assert(fabs(shortestPath(n, edges, 0, 4) - 7.0) < 1e-9);
-    // 0→2→1 = 1+2 = 3，比直连的 4 更短
+    // 0→2→1 = 1+2 = 3，比直連的 4 更短
     assert(fabs(shortestPath(n, edges, 0, 1) - 3.0) < 1e-9);
     assert(fabs(shortestPath(n, edges, 4, 4) - 0.0) < 1e-9);
-    // 不连通时应返回 -1
+    // 不連通時應返回 -1
     assert(shortestPath(2, {}, 0, 1) == -1.0);
 
     cout << "all tests passed" << endl;

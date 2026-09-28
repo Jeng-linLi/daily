@@ -1,22 +1,22 @@
-// 最长公共子序列（LCS，动态规划 + 回溯还原）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// 最長公共子序列（LCS，動態規劃 + 回溯還原）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 //
-// 思路：dp[i][j] = a 的前 i 个字符与 b 的前 j 个字符的 LCS 长度。
-//   看最后一对字符 a[i-1] 与 b[j-1]，只有两种情况：
-//     - 相等：这个字符一定可以接在 a[:i-1] 与 b[:j-1] 的 LCS 后面，
+// 思路：dp[i][j] = a 的前 i 個字符與 b 的前 j 個字符的 LCS 長度。
+//   看最後一對字符 a[i-1] 與 b[j-1]，只有兩種情況：
+//     - 相等：這個字符一定可以接在 a[:i-1] 與 b[:j-1] 的 LCS 後面，
 //             故 dp[i][j] = dp[i-1][j-1] + 1；
-//     - 不等：它俩不可能同时出现在同一个匹配里，dp[i][j] = max(dp[i-1][j], dp[i][j-1])。
-//   边界 dp[0][j] = dp[i][0] = 0。
+//     - 不等：它倆不可能同時出現在同一個匹配裏，dp[i][j] = max(dp[i-1][j], dp[i][j-1])。
+//   邊界 dp[0][j] = dp[i][0] = 0。
 //
-//   只求长度时空间可压到两行（dp[i][*] 只依赖 dp[i-1][*]）；但要还原方案必须保留
-//   整张表，再从 dp[m][n] 往回走：字符相等就收下并同时后退一步，否则往 dp 值大的
-//   方向走（相等时优先走 i，即丢弃 a[i-1]）。回溯倒着走，收集到的字符最后要反转。
+//   只求長度時空間可壓到兩行（dp[i][*] 只依賴 dp[i-1][*]）；但要還原方案必須保留
+//   整張表，再從 dp[m][n] 往回走：字符相等就收下並同時後退一步，否則往 dp 值大的
+//   方向走（相等時優先走 i，即丟棄 a[i-1]）。回溯倒着走，收集到的字符最後要反轉。
 //
-//   注意 LCS 通常不唯一，回溯只保证给出其中一条。
+//   注意 LCS 通常不唯一，回溯只保證給出其中一條。
 //
-// 输入：第一行字符串 a；第二行字符串 b（可为空行）
-// 输出：第一行 LCS 长度；第二行一条达到该长度的公共子序列（长度为 0 时输出空行）
-// 无 stdin 输入时运行内置断言测试。
+// 輸入：第一行字符串 a；第二行字符串 b（可爲空行）
+// 輸出：第一行 LCS 長度；第二行一條達到該長度的公共子序列（長度爲 0 時輸出空行）
+// 無 stdin 輸入時運行內置斷言測試。
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -28,10 +28,10 @@
 
 using namespace std;
 
-// 两行滚动数组，只求长度。时间 O(m*n)，空间 O(min(m, n))
+// 兩行滾動數組，只求長度。時間 O(m*n)，空間 O(min(m, n))
 int lcsLength(const string& aIn, const string& bIn) {
     const string *pa = &aIn, *pb = &bIn;
-    if (pa->size() < pb->size()) swap(pa, pb);   // 让 b 成为较短的那个，滚动数组更省空间
+    if (pa->size() < pb->size()) swap(pa, pb);   // 讓 b 成爲較短的那個，滾動數組更省空間
     const string& a = *pa;
     const string& b = *pb;
     int m = static_cast<int>(a.size()), n = static_cast<int>(b.size());
@@ -42,13 +42,13 @@ int lcsLength(const string& aIn, const string& bIn) {
             if (a[i - 1] == b[j - 1]) cur[j] = prev[j - 1] + 1;
             else cur[j] = max(prev[j], cur[j - 1]);
         }
-        prev.swap(cur);                          // 交换，下一行复用上一行的空间
+        prev.swap(cur);                          // 交換，下一行復用上一行的空間
         cur[0] = 0;
     }
     return prev[n];
 }
 
-// 保留完整 dp 表并回溯出一条 LCS。时间 O(m*n)，空间 O(m*n)
+// 保留完整 dp 表並回溯出一條 LCS。時間 O(m*n)，空間 O(m*n)
 pair<int, string> lcsWithString(const string& a, const string& b) {
     int m = static_cast<int>(a.size()), n = static_cast<int>(b.size());
     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
@@ -63,19 +63,19 @@ pair<int, string> lcsWithString(const string& a, const string& b) {
     int i = m, j = n;
     while (i > 0 && j > 0) {
         if (a[i - 1] == b[j - 1]) {
-            sub.push_back(a[i - 1]);             // 这个字符属于 LCS
+            sub.push_back(a[i - 1]);             // 這個字符屬於 LCS
             --i; --j;
         } else if (dp[i - 1][j] >= dp[i][j - 1]) {
-            --i;                                 // 丢弃 a[i-1]（相等时优先走 i）
+            --i;                                 // 丟棄 a[i-1]（相等時優先走 i）
         } else {
-            --j;                                 // 丢弃 b[j-1]
+            --j;                                 // 丟棄 b[j-1]
         }
     }
     reverse(sub.begin(), sub.end());
     return {dp[m][n], sub};
 }
 
-// 判断 sub 是否为 s 的子序列
+// 判斷 sub 是否爲 s 的子序列
 bool isSubsequence(const string& sub, const string& s) {
     size_t pos = 0;
     for (char ch : sub) {
@@ -86,12 +86,12 @@ bool isSubsequence(const string& sub, const string& s) {
     return true;
 }
 
-// 对照用的带记忆化递归（指数级搜索 + 剪枝），仅用于小规模测试验证
+// 對照用的帶記憶化遞歸（指數級搜索 + 剪枝），僅用於小規模測試驗證
 int lcsBrute(const string& a, const string& b) {
     int m = static_cast<int>(a.size()), n = static_cast<int>(b.size());
     vector<vector<int>> memo(m + 1, vector<int>(n + 1, -1));
 
-    // 递归 lambda：go(i, j) = a 的前 i 个与 b 的前 j 个的 LCS 长度
+    // 遞歸 lambda：go(i, j) = a 的前 i 個與 b 的前 j 個的 LCS 長度
     auto go = [&](auto&& self, int i, int j) -> int {
         if (i == 0 || j == 0) return 0;
         int& res = memo[i][j];
@@ -103,7 +103,7 @@ int lcsBrute(const string& a, const string& b) {
     return go(go, m, n);
 }
 
-// 与 Python 版同规模的固定随机序列（LCG），两版各自独立与暴力解对拍
+// 與 Python 版同規模的固定隨機序列（LCG），兩版各自獨立與暴力解對拍
 struct LCG {
     unsigned long long s;
     LCG(unsigned long long seed) : s(seed) {}
@@ -114,8 +114,8 @@ struct LCG {
 };
 
 int main() {
-    // 一次性读完整份 stdin，与 Python 版 `raw.strip()` 的判定保持完全一致：
-    // 只有存在非空白字符时才进入 IO 模式
+    // 一次性讀完整份 stdin，與 Python 版 `raw.strip()` 的判定保持完全一致：
+    // 只有存在非空白字符時才進入 IO 模式
     string data((istreambuf_iterator<char>(cin)), istreambuf_iterator<char>());
     bool hasContent = false;
     for (char c : data) {
@@ -124,7 +124,7 @@ int main() {
     if (hasContent) {
         vector<string> lines;
         string line;
-        for (size_t p = 0; p <= data.size();) {          // 手工按 \n 切分，与 splitlines 对齐
+        for (size_t p = 0; p <= data.size();) {          // 手工按 \n 切分，與 splitlines 對齊
             size_t q = data.find('\n', p);
             if (q == string::npos) {
                 line = data.substr(p);
@@ -133,7 +133,7 @@ int main() {
             }
             line = data.substr(p, q - p);
             if (!line.empty() && line.back() == '\r') line.pop_back();  // 兼容 CRLF
-            lines.push_back(line);                        // 空行也要保留，与 Python splitlines 一致
+            lines.push_back(line);                        // 空行也要保留，與 Python splitlines 一致
             p = q + 1;
         }
         string a = lines.size() > 0 ? lines[0] : "";
@@ -143,7 +143,7 @@ int main() {
         return 0;
     }
 
-    // README 示例：abcde 与 ace 的 LCS 是 ace，长度 3
+    // README 示例：abcde 與 ace 的 LCS 是 ace，長度 3
     {
         auto res = lcsWithString("abcde", "ace");
         assert(res.first == 3);
@@ -156,17 +156,17 @@ int main() {
     assert(lcsLength("abc", "abc") == 3);
     assert(lcsWithString("abc", "abc") == make_pair(3, string("abc")));
 
-    // 没有公共字符：空串
+    // 沒有公共字符：空串
     assert(lcsLength("abc", "def") == 0);
     assert(lcsWithString("abc", "def") == make_pair(0, string("")));
 
-    // 一边为空
+    // 一邊爲空
     assert(lcsLength("", "abc") == 0);
     assert(lcsWithString("", "abc") == make_pair(0, string("")));
     assert(lcsWithString("abc", "") == make_pair(0, string("")));
     assert(lcsWithString("", "") == make_pair(0, string("")));
 
-    // 经典用例：长度为 4（"bdab" / "bcba" 等都算对，只断言长度与合法性）
+    // 經典用例：長度爲 4（"bdab" / "bcba" 等都算對，只斷言長度與合法性）
     {
         auto res = lcsWithString("abcbdab", "bdcaba");
         assert(res.first == 4);
@@ -180,17 +180,17 @@ int main() {
     assert(lcsLength("ace", "abcde") == 3);
     assert(lcsWithString("ace", "abcde").second == "ace");
 
-    // 大小写敏感
+    // 大小寫敏感
     assert(lcsLength("Abc", "abc") == 2);
 
-    // 重复字符
+    // 重複字符
     assert(lcsLength("aaaa", "aa") == 2);
     assert(lcsLength("aab", "aba") == 2);
 
     LCG rng(20260927ULL);
     const string alphabet = "abc";
 
-    // 随机对拍：两行滚动版 = 完整表版 = 记忆化暴力版，且还原出的串确实合法
+    // 隨機對拍：兩行滾動版 = 完整表版 = 記憶化暴力版，且還原出的串確實合法
     for (int t = 0; t < 300; ++t) {
         string a, b;
         int la = rng.next(0, 8), lb = rng.next(0, 8);
@@ -200,15 +200,15 @@ int main() {
         int d1 = lcsLength(a, b);
         auto res = lcsWithString(a, b);
         int d3 = lcsBrute(a, b);
-        assert(d1 == res.first);                          // 滚动版 = 完整表版
+        assert(d1 == res.first);                          // 滾動版 = 完整表版
         assert(res.first == d3);                          // 完整表版 = 暴力版
-        assert(static_cast<int>(res.second.size()) == res.first);  // 串长就是最优值
-        assert(isSubsequence(res.second, a));             // 确实是 a 的子序列
-        assert(isSubsequence(res.second, b));             // 确实是 b 的子序列
-        assert(0 <= res.first && res.first <= min(la, lb));  // 长度落在合理区间内
+        assert(static_cast<int>(res.second.size()) == res.first);  // 串長就是最優值
+        assert(isSubsequence(res.second, a));             // 確實是 a 的子序列
+        assert(isSubsequence(res.second, b));             // 確實是 b 的子序列
+        assert(0 <= res.first && res.first <= min(la, lb));  // 長度落在合理區間內
     }
 
-    // 对称性与上界性质
+    // 對稱性與上界性質
     for (int t = 0; t < 100; ++t) {
         string a, b;
         int la = rng.next(0, 6), lb = rng.next(0, 6);

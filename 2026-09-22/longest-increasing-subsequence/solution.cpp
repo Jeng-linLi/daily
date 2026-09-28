@@ -1,19 +1,19 @@
-// 最长递增子序列（Longest Increasing Subsequence, LIS）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// 最長遞增子序列（Longest Increasing Subsequence, LIS）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 //
 // 思路：
-//   方法一 · 动态规划 O(n^2)
-//       dp[i] 表示「以 nums[i] 作为结尾」的最长递增子序列长度。
-//       dp[i] = 1 + max{ dp[j] | j < i 且 nums[j] < nums[i] }，取不到则 dp[i] = 1。
-//       pre[i] 记前驱下标，从 dp 最大处往回跳即可还原序列。
-//   方法二 · 贪心 + 二分 O(n log n)
-//       tails[k] = 长度为 k+1 的递增子序列的最小结尾值，tails 本身严格递增。
-//       对每个 x 二分找到第一个 >= x 的位置：能接长就追加，否则用 x 覆盖（结尾越小潜力越大）。
+//   方法一 · 動態規劃 O(n^2)
+//       dp[i] 表示「以 nums[i] 作爲結尾」的最長遞增子序列長度。
+//       dp[i] = 1 + max{ dp[j] | j < i 且 nums[j] < nums[i] }，取不到則 dp[i] = 1。
+//       pre[i] 記前驅下標，從 dp 最大處往回跳即可還原序列。
+//   方法二 · 貪心 + 二分 O(n log n)
+//       tails[k] = 長度爲 k+1 的遞增子序列的最小結尾值，tails 本身嚴格遞增。
+//       對每個 x 二分找到第一個 >= x 的位置：能接長就追加，否則用 x 覆蓋（結尾越小潛力越大）。
 //       tails 未必是合法子序列，但 len(tails) 一定是答案。
 //
-// 输入：第一行 n；第二行 n 个整数
-// 输出：第一行 LIS 长度；第二行一条 LIS（空格分隔）
-// 无 stdin 输入时运行内置断言测试。
+// 輸入：第一行 n；第二行 n 個整數
+// 輸出：第一行 LIS 長度；第二行一條 LIS（空格分隔）
+// 無 stdin 輸入時運行內置斷言測試。
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -22,21 +22,21 @@
 
 using namespace std;
 
-// 贪心 + 二分，O(n log n)，只求长度
+// 貪心 + 二分，O(n log n)，只求長度
 int lengthOfLIS(const vector<int>& nums) {
-    vector<int> tails;  // tails[k] = 长度 k+1 的递增子序列的最小结尾
+    vector<int> tails;  // tails[k] = 長度 k+1 的遞增子序列的最小結尾
     for (int x : nums) {
-        auto it = lower_bound(tails.begin(), tails.end(), x);  // 第一个 >= x
+        auto it = lower_bound(tails.begin(), tails.end(), x);  // 第一個 >= x
         if (it == tails.end()) {
-            tails.push_back(x);  // 能接在所有已有序列后面
+            tails.push_back(x);  // 能接在所有已有序列後面
         } else {
-            *it = x;             // 用更小的结尾替换，留出增长空间
+            *it = x;             // 用更小的結尾替換，留出增長空間
         }
     }
     return static_cast<int>(tails.size());
 }
 
-// 动态规划，O(n^2)，返回一条具体的最长递增子序列
+// 動態規劃，O(n^2)，返回一條具體的最長遞增子序列
 vector<int> lisDP(const vector<int>& nums) {
     int n = static_cast<int>(nums.size());
     if (n == 0) return {};
@@ -76,21 +76,21 @@ int main() {
         return 0;
     }
 
-    // 经典用例
+    // 經典用例
     assert(lengthOfLIS({10, 9, 2, 5, 3, 7, 101, 18}) == 4);
     assert(lisDP({10, 9, 2, 5, 3, 7, 101, 18}) == (vector<int>{2, 5, 7, 101}));
-    // 相等元素不算递增
+    // 相等元素不算遞增
     assert(lengthOfLIS({7, 7, 7, 7}) == 1);
     assert(lisDP({7, 7, 7, 7}) == (vector<int>{7}));
-    // 含重复但仍能取更长
+    // 含重複但仍能取更長
     assert(lengthOfLIS({0, 1, 0, 3, 2, 3}) == 4);
     assert(lisDP({0, 1, 0, 3, 2, 3}) == (vector<int>{0, 1, 2, 3}));
-    // 边界
+    // 邊界
     assert(lengthOfLIS({}) == 0);
     assert(lisDP({}).empty());
     assert(lengthOfLIS({1}) == 1);
     assert(lisDP({1}) == (vector<int>{1}));
-    // 完全递减 / 完全递增
+    // 完全遞減 / 完全遞增
     assert(lengthOfLIS({5, 4, 3, 2, 1}) == 1);
     assert(lengthOfLIS({1, 2, 3, 4, 5}) == 5);
     assert(lisDP({1, 2, 3, 4, 5}) == (vector<int>{1, 2, 3, 4, 5}));

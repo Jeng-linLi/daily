@@ -1,15 +1,15 @@
-// 前缀树（Trie / Prefix Tree）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// 前綴樹（Trie / Prefix Tree）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 //
-// 思路：Trie 是「按字符分叉」的多叉树，根到某节点的路径拼成一个前缀。
-//   每个节点维护 children（字符 -> 子节点）、isEnd（是否有单词在此结束，
-//   用来区分 "app" 与 "apple"）、pass（经过该节点的单词数）、endCnt（在此结束的次数）。
-//   插入时逐字符走，缺节点就新建，沿途 pass 全部 +1，结束时置 isEnd。
-//   复杂度只与字符串长度有关，与集合规模无关——这是它相对哈希表最大的优势。
+// 思路：Trie 是「按字符分叉」的多叉樹，根到某節點的路徑拼成一個前綴。
+//   每個節點維護 children（字符 -> 子節點）、isEnd（是否有單詞在此結束，
+//   用來區分 "app" 與 "apple"）、pass（經過該節點的單詞數）、endCnt（在此結束的次數）。
+//   插入時逐字符走，缺節點就新建，沿途 pass 全部 +1，結束時置 isEnd。
+//   複雜度只與字符串長度有關，與集合規模無關——這是它相對哈希表最大的優勢。
 //
-// 输入：第一行 n；接下来 n 行：insert w | search w | startsWith p | countPrefix p
-// 输出：search / startsWith 输出 true / false；countPrefix 输出整数；insert 无输出
-// 无 stdin 输入时运行内置断言测试。
+// 輸入：第一行 n；接下來 n 行：insert w | search w | startsWith p | countPrefix p
+// 輸出：search / startsWith 輸出 true / false；countPrefix 輸出整數；insert 無輸出
+// 無 stdin 輸入時運行內置斷言測試。
 #include <cassert>
 #include <iostream>
 #include <string>
@@ -19,17 +19,17 @@
 using namespace std;
 
 struct TrieNode {
-    unordered_map<char, int> children;  // 字符 -> 子节点在 pool 中的下标
-    bool isEnd = false;                 // 是否有单词在此结束
-    int passCount = 0;                  // 经过该节点的单词数
-    int endCount = 0;                   // 在此结束的单词数（含重复插入）
+    unordered_map<char, int> children;  // 字符 -> 子節點在 pool 中的下標
+    bool isEnd = false;                 // 是否有單詞在此結束
+    int passCount = 0;                  // 經過該節點的單詞數
+    int endCount = 0;                   // 在此結束的單詞數（含重複插入）
 };
 
 class Trie {
 public:
-    Trie() { pool.emplace_back(); }  // pool[0] 为根
+    Trie() { pool.emplace_back(); }  // pool[0] 爲根
 
-    // 插入单词，时间 O(|word|)
+    // 插入單詞，時間 O(|word|)
     void insert(const string& word) {
         int u = 0;
         pool[u].passCount++;
@@ -49,22 +49,22 @@ public:
         pool[u].endCount++;
     }
 
-    // 完整单词是否存在，时间 O(|word|)
+    // 完整單詞是否存在，時間 O(|word|)
     bool search(const string& word) const {
         int u = walk(word);
         return u != -1 && pool[u].isEnd;
     }
 
-    // 是否存在该前缀，时间 O(|prefix|)
+    // 是否存在該前綴，時間 O(|prefix|)
     bool startsWith(const string& prefix) const { return walk(prefix) != -1; }
 
-    // 以 prefix 为前缀的单词个数（重复插入计多次）
+    // 以 prefix 爲前綴的單詞個數（重複插入計多次）
     int countPrefix(const string& prefix) const {
         int u = walk(prefix);
         return u == -1 ? 0 : pool[u].passCount;
     }
 
-    // word 被插入了几次
+    // word 被插入了幾次
     int countWord(const string& word) const {
         int u = walk(word);
         return u == -1 ? 0 : pool[u].endCount;
@@ -73,7 +73,7 @@ public:
 private:
     vector<TrieNode> pool;
 
-    // 沿字符串走到对应节点；中途断掉返回 -1
+    // 沿字符串走到對應節點；中途斷掉返回 -1
     int walk(const string& s) const {
         int u = 0;
         for (char ch : s) {
@@ -111,8 +111,8 @@ int main() {
     trie.insert("application");
     trie.insert("banana");
 
-    assert(trie.search("app") == true);        // 完整单词，确实插入过
-    assert(trie.search("appl") == false);      // 只是前缀，不是完整单词
+    assert(trie.search("app") == true);        // 完整單詞，確實插入過
+    assert(trie.search("appl") == false);      // 只是前綴，不是完整單詞
     assert(trie.search("apple") == true);
     assert(trie.search("applex") == false);
     assert(trie.startsWith("app") == true);
@@ -124,11 +124,11 @@ int main() {
     assert(trie.countPrefix("b") == 1);
     assert(trie.countPrefix("z") == 0);
 
-    trie.insert("app");                        // 允许重复插入
+    trie.insert("app");                        // 允許重複插入
     assert(trie.countWord("app") == 2);
     assert(trie.countPrefix("app") == 4);
 
-    // 空串：根节点既是起点也是终点
+    // 空串：根節點既是起點也是終點
     Trie t2;
     t2.insert("");
     assert(t2.search("") == true);

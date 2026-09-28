@@ -1,25 +1,25 @@
-"""线段树（区间和 + 懒标记区间加）
+"""線段樹（區間和 + 懶標記區間加）
 
-题意：给定数组 a，支持两种操作（下标 0-based，区间为闭区间 [l, r]）：
+題意：給定數組 a，支持兩種操作（下標 0-based，區間爲閉區間 [l, r]）：
     query(l, r)      求 a[l..r] 的元素和
-    add(l, r, v)     把 a[l..r] 每个元素都加上 v
-暴力做法单次 O(n)，m 次操作就是 O(nm)；线段树把两种操作都降到 O(log n)。
+    add(l, r, v)     把 a[l..r] 每個元素都加上 v
+暴力做法單次 O(n)，m 次操作就是 O(nm)；線段樹把兩種操作都降到 O(log n)。
 
 思路：
-    线段树是一棵描述「区间」的二叉树：
-      - 叶子存单个元素，内部节点存左右儿子区间的合并结果（这里是和）。
-      - 区间查询：把目标区间拆成 O(log n) 个节点，命中完全覆盖的节点就直接返回。
-      - 区间修改：若整段被覆盖，只更新该节点的 sum 并打上懒标记 lazy，不再往下递归；
-        下次访问必须下推（push_down）时再把标记分给两个儿子。
-      懒标记的本质是「延迟执行」：只要没人问细节，就不必真的改到叶子。
-    用数组（堆式存储）实现：节点 p 的左儿子 2p、右儿子 2p+1，空间开 4n。
+    線段樹是一棵描述「區間」的二叉樹：
+      - 葉子存單個元素，內部節點存左右兒子區間的合併結果（這裡是和）。
+      - 區間查詢：把目標區間拆成 O(log n) 個節點，命中完全覆蓋的節點就直接返回。
+      - 區間修改：若整段被覆蓋，只更新該節點的 sum 並打上懶標記 lazy，不再往下遞歸；
+        下次訪問必須下推（push_down）時再把標記分給兩個兒子。
+      懶標記的本質是「延遲執行」：只要沒人問細節，就不必真的改到葉子。
+    用數組（堆式存儲）實現：節點 p 的左兒子 2p、右兒子 2p+1，空間開 4n。
 
-输入格式（stdin）：
-    第一行 n q（数组长度、操作条数）
-    第二行 n 个整数（初始数组）
-    接下来 q 行：1 l r（查询 sum）/ 2 l r v（区间加 v）
-输出格式（stdout）：每个查询操作输出一行区间和
-无 stdin 输入时运行内置断言测试。
+輸入格式（stdin）：
+    第一行 n q（數組長度、操作條數）
+    第二行 n 個整數（初始數組）
+    接下來 q 行：1 l r（查詢 sum）/ 2 l r v（區間加 v）
+輸出格式（stdout）：每個查詢操作輸出一行區間和
+無 stdin 輸入時運行內置斷言測試。
 """
 
 import sys
@@ -27,17 +27,17 @@ from typing import List
 
 
 class SegmentTree:
-    """区间和线段树，支持区间加与区间求和，均为 O(log n)。"""
+    """區間和線段樹，支持區間加與區間求和，均爲 O(log n)。"""
 
     def __init__(self, arr: List[int]) -> None:
         self.n = len(arr)
-        self.sum = [0] * (4 * self.n + 5)   # sum[p]：节点 p 对应区间的元素和
-        self.lazy = [0] * (4 * self.n + 5)  # lazy[p]：待下推给子孙的「整体加多少」
+        self.sum = [0] * (4 * self.n + 5)   # sum[p]：節點 p 對應區間的元素和
+        self.lazy = [0] * (4 * self.n + 5)  # lazy[p]：待下推給子孫的「整體加多少」
         if self.n > 0:
             self._build(1, 0, self.n - 1, arr)
 
     def _build(self, p: int, l: int, r: int, arr: List[int]) -> None:
-        """自底向上建树，O(n)。"""
+        """自底向上建樹，O(n)。"""
         if l == r:
             self.sum[p] = arr[l]
             return
@@ -47,12 +47,12 @@ class SegmentTree:
         self.sum[p] = self.sum[2 * p] + self.sum[2 * p + 1]
 
     def _apply(self, p: int, l: int, r: int, v: int) -> None:
-        """给节点 p 整段加 v：更新 sum，并累积懒标记。"""
+        """給節點 p 整段加 v：更新 sum，並累積懶標記。"""
         self.sum[p] += v * (r - l + 1)
         self.lazy[p] += v
 
     def _push_down(self, p: int, l: int, r: int) -> None:
-        """把 p 的懒标记下推给两个儿子，只在需要深入时使用。"""
+        """把 p 的懶標記下推給兩個兒子，只在需要深入時使用。"""
         if self.lazy[p] == 0 or l == r:
             return
         mid = (l + r) // 2
@@ -62,13 +62,13 @@ class SegmentTree:
         self.lazy[p] = 0
 
     def add(self, ql: int, qr: int, v: int) -> None:
-        """区间加：a[ql..qr] += v，O(log n)。"""
+        """區間加：a[ql..qr] += v，O(log n)。"""
         if self.n == 0:
             return
         self._add(1, 0, self.n - 1, ql, qr, v)
 
     def _add(self, p: int, l: int, r: int, ql: int, qr: int, v: int) -> None:
-        if ql <= l and r <= qr:      # 完全覆盖，打标记后直接返回
+        if ql <= l and r <= qr:      # 完全覆蓋，打標記後直接返回
             self._apply(p, l, r, v)
             return
         self._push_down(p, l, r)
@@ -80,13 +80,13 @@ class SegmentTree:
         self.sum[p] = self.sum[2 * p] + self.sum[2 * p + 1]
 
     def query(self, ql: int, qr: int) -> int:
-        """区间求和：返回 a[ql..qr] 的和，O(log n)。"""
+        """區間求和：返回 a[ql..qr] 的和，O(log n)。"""
         if self.n == 0:
             return 0
         return self._query(1, 0, self.n - 1, ql, qr)
 
     def _query(self, p: int, l: int, r: int, ql: int, qr: int) -> int:
-        if ql <= l and r <= qr:      # 完全覆盖，直接返回整段和
+        if ql <= l and r <= qr:      # 完全覆蓋，直接返回整段和
             return self.sum[p]
         self._push_down(p, l, r)
         mid = (l + r) // 2
@@ -99,7 +99,7 @@ class SegmentTree:
 
 
 def run_io(data: str) -> None:
-    """按统一输入输出格式处理 stdin 数据。"""
+    """按統一輸入輸出格式處理 stdin 數據。"""
     tokens = data.split()
     n = int(tokens[0])
     q = int(tokens[1])
@@ -124,16 +124,16 @@ def run_tests() -> None:
     st = SegmentTree(arr)
     assert st.query(0, 5) == 36
     assert st.query(1, 3) == 15      # 3 + 5 + 7
-    assert st.query(2, 2) == 5       # 单点查询
+    assert st.query(2, 2) == 5       # 單點查詢
     st.add(1, 3, 10)                 # [1, 13, 15, 17, 9, 11]
     assert st.query(1, 3) == 45
     assert st.query(0, 5) == 66      # 36 + 3 * 10
-    assert st.query(0, 0) == 1       # 区间外的点不受影响
+    assert st.query(0, 0) == 1       # 區間外的點不受影響
     assert st.query(4, 5) == 20
 
-    # 懒标记叠加与部分覆盖交叉验证
+    # 懶標記疊加與部分覆蓋交叉驗證
     st = SegmentTree([0] * 5)
-    # 结果数组为 [2, 5, 5, 5, 2]
+    # 結果數組爲 [2, 5, 5, 5, 2]
     st.add(0, 4, 2)
     st.add(1, 3, 3)
     assert st.query(0, 4) == 19       # 2*5 + 3*3
@@ -141,7 +141,7 @@ def run_tests() -> None:
     assert st.query(1, 3) == 15       # 5 + 5 + 5
     assert st.query(4, 4) == 2
 
-    # 单元素与空数组边界
+    # 單元素與空數組邊界
     st1 = SegmentTree([42])
     assert st1.query(0, 0) == 42
     st1.add(0, 0, -40)
@@ -149,7 +149,7 @@ def run_tests() -> None:
     st0 = SegmentTree([])
     assert st0.query(0, 0) == 0
 
-    # 与朴素数组对拍
+    # 與樸素數組對拍
     import random
     base = [random.randint(-20, 20) for _ in range(40)]
     st2 = SegmentTree(base)

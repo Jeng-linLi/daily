@@ -1,5 +1,5 @@
-// 并查集（Disjoint Set Union / Union-Find）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// 併查集（Disjoint Set Union / Union-Find）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -12,17 +12,17 @@ public:
         for (int i = 0; i < n; ++i) parent[i] = i;
     }
 
-    // 带路径压缩的查找：递归回溯时把沿途节点直接挂到根上
+    // 帶路徑壓縮的查找：遞歸回溯時把沿途節點直接掛到根上
     int find(int x) {
         if (parent[x] != x) parent[x] = find(parent[x]);
         return parent[x];
     }
 
-    // 合并 a、b 所在集合；返回是否真的发生了合并
+    // 合併 a、b 所在集合；返回是否真的發生了合併
     bool unite(int a, int b) {
         int ra = find(a), rb = find(b);
         if (ra == rb) return false;
-        // 按大小合并：小树挂到大树下面，避免树退化成链
+        // 按大小合併：小樹掛到大樹下面，避免樹退化成鏈
         if (sz[ra] < sz[rb]) swap(ra, rb);
         parent[rb] = ra;
         sz[ra] += sz[rb];
@@ -35,12 +35,12 @@ public:
     int count() const { return components; }
 
 private:
-    vector<int> parent;  // parent[i] = i 的父节点
-    vector<int> sz;      // 以 i 为根的树的节点数
-    int components;      // 连通分量个数
+    vector<int> parent;  // parent[i] = i 的父節點
+    vector<int> sz;      // 以 i 爲根的樹的節點數
+    int components;      // 連通分量個數
 };
 
-// 给定 n 个节点与若干无向边，返回连通分量个数
+// 給定 n 個節點與若干無向邊，返回連通分量個數
 int countComponents(int n, const vector<pair<int, int>>& edges) {
     UnionFind uf(n);
     for (auto& e : edges) uf.unite(e.first, e.second);
@@ -52,7 +52,7 @@ int main() {
     assert(uf.count() == 7);
     assert(uf.unite(0, 1) == true);
     assert(uf.unite(1, 2) == true);
-    assert(uf.unite(1, 2) == false);  // 重复合并不再生效
+    assert(uf.unite(1, 2) == false);  // 重複合併不再生效
     assert(uf.connected(0, 2) == true);
     assert(uf.connected(0, 3) == false);
     assert(uf.componentSize(0) == 3);

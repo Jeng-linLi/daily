@@ -1,17 +1,17 @@
-// 0-1 背包（Knapsack 0-1，动态规划）
-// 编译：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
+// 0-1 背包（Knapsack 0-1，動態規劃）
+// 編譯：g++ -std=c++17 -O2 solution.cpp -o solution && ./solution
 //
-// 思路：定义 dp[i][c] = 只考虑前 i 个物品、容量为 c 时的最大价值。对第 i 个物品：
-//     不选 dp[i][c] = dp[i-1][c]；选 dp[i][c] = dp[i-1][c-w[i]] + v[i]（需 c >= w[i]），取最大。
-//   物品只能选一次，转移只依赖 i-1 层，不会同层自我叠加（区别于完全背包）。
+// 思路：定義 dp[i][c] = 只考慮前 i 個物品、容量爲 c 時的最大價值。對第 i 個物品：
+//     不選 dp[i][c] = dp[i-1][c]；選 dp[i][c] = dp[i-1][c-w[i]] + v[i]（需 c >= w[i]），取最大。
+//   物品只能選一次，轉移只依賴 i-1 層，不會同層自我疊加（區別於完全背包）。
 //
-//   空间可压到一维 dp[c]，但**容量 c 必须倒序遍历**（W -> w[i]）：
-//   倒序保证 dp[c-w[i]] 读到的仍是 i-1 层旧值；正序则会把同一物品重复放入，退化成完全背包。
-//   要还原方案必须保留二维表：dp[i][c] != dp[i-1][c] 说明第 i 个物品被选了，反推即可。
+//   空間可壓到一維 dp[c]，但**容量 c 必須倒序遍歷**（W -> w[i]）：
+//   倒序保證 dp[c-w[i]] 讀到的仍是 i-1 層舊值；正序則會把同一物品重複放入，退化成完全背包。
+//   要還原方案必須保留二維表：dp[i][c] != dp[i-1][c] 說明第 i 個物品被選了，反推即可。
 //
-// 输入：第一行 n W；接下来 n 行，每行 w_i v_i
-// 输出：第一行最大总价值；第二行被选中物品下标（0-based，升序，空格分隔）
-// 无 stdin 输入时运行内置断言测试。
+// 輸入：第一行 n W；接下來 n 行，每行 w_i v_i
+// 輸出：第一行最大總價值；第二行被選中物品下標（0-based，升序，空格分隔）
+// 無 stdin 輸入時運行內置斷言測試。
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -20,11 +20,11 @@
 
 using namespace std;
 
-// 只求最大价值：一维滚动数组，时间 O(n*W)，空间 O(W)
+// 只求最大價值：一維滾動數組，時間 O(n*W)，空間 O(W)
 int knapsackMax(const vector<int>& w, const vector<int>& v, int capacity) {
     vector<int> dp(capacity + 1, 0);
     for (size_t i = 0; i < w.size(); ++i) {
-        // 容量倒序；正序会让同一物品被重复选取，退化为完全背包
+        // 容量倒序；正序會讓同一物品被重複選取，退化爲完全背包
         for (int c = capacity; c >= w[i]; --c) {
             int cand = dp[c - w[i]] + v[i];
             if (cand > dp[c]) dp[c] = cand;
@@ -33,23 +33,23 @@ int knapsackMax(const vector<int>& w, const vector<int>& v, int capacity) {
     return dp[capacity];
 }
 
-// 求最大价值并还原一种选取方案：保留二维表，空间 O(n*W)
+// 求最大價值並還原一種選取方案：保留二維表，空間 O(n*W)
 pair<int, vector<int>> knapsackWithItems(const vector<int>& w, const vector<int>& v, int capacity) {
     int n = static_cast<int>(w.size());
     vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, 0));
 
     for (int i = 1; i <= n; ++i) {
         for (int c = 0; c <= capacity; ++c) {
-            int best = dp[i - 1][c];                       // 不选第 i-1 个物品
+            int best = dp[i - 1][c];                       // 不選第 i-1 個物品
             if (c >= w[i - 1]) {
-                int take = dp[i - 1][c - w[i - 1]] + v[i - 1];  // 选它
+                int take = dp[i - 1][c - w[i - 1]] + v[i - 1];  // 選它
                 if (take > best) best = take;
             }
             dp[i][c] = best;
         }
     }
 
-    // 反向还原：dp[i][c] 比 dp[i-1][c] 大，说明第 i-1 个物品被选中了
+    // 反向還原：dp[i][c] 比 dp[i-1][c] 大，說明第 i-1 個物品被選中了
     vector<int> chosen;
     int c = capacity;
     for (int i = n; i >= 1; --i) {
@@ -62,7 +62,7 @@ pair<int, vector<int>> knapsackWithItems(const vector<int>& w, const vector<int>
     return {dp[n][capacity], chosen};
 }
 
-// 对照用的指数级枚举，仅用于小规模测试验证
+// 對照用的指數級枚舉，僅用於小規模測試驗證
 int bruteForce(const vector<int>& w, const vector<int>& v, int capacity) {
     int n = static_cast<int>(w.size());
     int best = 0;
@@ -76,7 +76,7 @@ int bruteForce(const vector<int>& w, const vector<int>& v, int capacity) {
     return best;
 }
 
-// 与 Python 版完全一致的固定随机序列，保证两版跑同一批用例
+// 與 Python 版完全一致的固定隨機序列，保證兩版跑同一批用例
 struct LCG {
     unsigned long long s;
     LCG(unsigned long long seed) : s(seed) {}
@@ -104,10 +104,10 @@ int main() {
         return 0;
     }
 
-    // 经典用例：容量 10 的最优值为 12，但存在多解
-    //   (a) 2 号 + 3 号：w=4+6=10, v=5+7=12
-    //   (b) 0 号 + 1 号 + 2 号：w=2+3+4=9, v=3+4+5=12
-    // 反推时「dp[i][c] == dp[i-1][c] 视为未选」，会优先得到 (b)，故只断言值最优、方案合法
+    // 經典用例：容量 10 的最優值爲 12，但存在多解
+    //   (a) 2 號 + 3 號：w=4+6=10, v=5+7=12
+    //   (b) 0 號 + 1 號 + 2 號：w=2+3+4=9, v=3+4+5=12
+    // 反推時「dp[i][c] == dp[i-1][c] 視爲未選」，會優先得到 (b)，故只斷言值最優、方案合法
     {
         vector<int> w = {2, 3, 4, 6};
         vector<int> v = {3, 4, 5, 7};
@@ -120,26 +120,26 @@ int main() {
         assert(tv == 12);
     }
 
-    // 容量为 0 / 物品为空
+    // 容量爲 0 / 物品爲空
     assert(knapsackMax({}, {}, 10) == 0);
     assert(knapsackMax({5}, {9}, 0) == 0);
     assert(knapsackWithItems({5}, {9}, 0).first == 0);
     assert(knapsackWithItems({5}, {9}, 0).second.empty());
 
-    // 单件装不下
+    // 單件裝不下
     assert(knapsackMax({5}, {9}, 4) == 0);
 
-    // 全部都能装下
+    // 全部都能裝下
     assert(knapsackMax({1, 2, 3}, {1, 2, 3}, 10) == 6);
 
-    // 按价值密度贪心会选错：密度最高的是 0 号(2.0)，但最优解是 1+2 号 w=10 v=18
+    // 按價值密度貪心會選錯：密度最高的是 0 號(2.0)，但最優解是 1+2 號 w=10 v=18
     assert(knapsackMax({5, 4, 6}, {10, 7, 11}, 10) == 18);
     assert(knapsackMax({5, 4, 6}, {10, 7, 11}, 10) == bruteForce({5, 4, 6}, {10, 7, 11}, 10));
 
-    // 零重量物品：价值白拿，且不会造成死循环
+    // 零重量物品：價值白拿，且不會造成死循環
     assert(knapsackMax({0, 3}, {5, 4}, 3) == 9);
 
-    // 与暴力枚举随机对照：同时校验最优值一致、方案可行且达到最优值
+    // 與暴力枚舉隨機對照：同時校驗最優值一致、方案可行且達到最優值
     LCG rng(20260922ULL);
     for (int t = 0; t < 300; ++t) {
         int len = rng.next(1, 10);
@@ -150,12 +150,12 @@ int main() {
             vs[i] = rng.next(0, 20);
         }
         auto res = knapsackWithItems(ws, vs, cap);
-        assert(res.first == bruteForce(ws, vs, cap));   // 最优值与暴力一致
-        assert(knapsackMax(ws, vs, cap) == res.first);  // 一维版与二维版一致
+        assert(res.first == bruteForce(ws, vs, cap));   // 最優值與暴力一致
+        assert(knapsackMax(ws, vs, cap) == res.first);  // 一維版與二維版一致
         int tw = 0, tv = 0;
         for (int i : res.second) { tw += ws[i]; tv += vs[i]; }
         assert(tw <= cap);                              // 方案不超容量
-        assert(tv == res.first);                        // 方案确实达到最优值
+        assert(tv == res.first);                        // 方案確實達到最優值
     }
 
     cout << "all tests passed" << endl;
