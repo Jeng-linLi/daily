@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-09-29 | 二元堆與優先佇列（堆排序 / Top-K / 多路歸併） | Python / C++ | [`2026-09-29/heap-priority-queue`](2026-09-29/heap-priority-queue) |
+| 2026-09-29 | Floyd-Warshall 全源最短路（負環檢測 + 傳遞閉包） | Python / C++ | [`2026-09-29/floyd-warshall`](2026-09-29/floyd-warshall) |
+| 2026-09-29 | 二元搜尋樹（插入 / 搜尋 / 刪除 / 中序遍歷） | Python / C++ | [`2026-09-29/binary-search-tree`](2026-09-29/binary-search-tree) |
 | 2026-09-28 | Bellman-Ford 最短路（負權邊 + 負環檢測） | Python / C++ | [`2026-09-28/bellman-ford`](2026-09-28/bellman-ford) |
 | 2026-09-28 | 單調棧（下一個更大元素 / 每日溫度 / 最大矩形） | Python / C++ | [`2026-09-28/monotonic-stack`](2026-09-28/monotonic-stack) |
 | 2026-09-28 | 快速排序與快速選擇（三路分區 + Quickselect） | Python / C++ | [`2026-09-28/quick-sort`](2026-09-28/quick-sort) |
