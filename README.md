@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-09-30 | Tarjan 強連通分量（縮點 DAG / 最少加邊數） | Python / C++ | [`2026-09-30/tarjan-scc`](2026-09-30/tarjan-scc) |
+| 2026-09-30 | 區間問題與貪心（不重疊 / 會議室 / 合併 / 引爆氣球） | Python / C++ | [`2026-09-30/interval-scheduling`](2026-09-30/interval-scheduling) |
+| 2026-09-30 | 快速冪與模運算（矩陣快速冪 / 乘法逆元） | Python / C++ | [`2026-09-30/modular-fast-power`](2026-09-30/modular-fast-power) |
 | 2026-09-29 | 二元堆與優先佇列（堆排序 / Top-K / 多路歸併） | Python / C++ | [`2026-09-29/heap-priority-queue`](2026-09-29/heap-priority-queue) |
 | 2026-09-29 | Floyd-Warshall 全源最短路（負環檢測 + 傳遞閉包） | Python / C++ | [`2026-09-29/floyd-warshall`](2026-09-29/floyd-warshall) |
 | 2026-09-29 | 二元搜尋樹（插入 / 搜尋 / 刪除 / 中序遍歷） | Python / C++ | [`2026-09-29/binary-search-tree`](2026-09-29/binary-search-tree) |
