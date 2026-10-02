@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-02 | 背包變體：多重背包 / 完全背包 / 最少件數 | Python / C++ | [`2026-10-02/knapsack-complete-multiple`](2026-10-02/knapsack-complete-multiple) |
+| 2026-10-02 | Manacher 最長回文子串（回文半徑 / 子串計數） | Python / C++ | [`2026-10-02/manacher-palindrome`](2026-10-02/manacher-palindrome) |
+| 2026-10-02 | 差分陣列與前綴和（區間加 / 子矩陣求和 / 和為 k 的子數組） | Python / C++ | [`2026-10-02/difference-array-prefix-sum`](2026-10-02/difference-array-prefix-sum) |
 | 2026-09-30 | Tarjan 強連通分量（縮點 DAG / 最少加邊數） | Python / C++ | [`2026-09-30/tarjan-scc`](2026-09-30/tarjan-scc) |
 | 2026-09-30 | 區間問題與貪心（不重疊 / 會議室 / 合併 / 引爆氣球） | Python / C++ | [`2026-09-30/interval-scheduling`](2026-09-30/interval-scheduling) |
 | 2026-09-30 | 快速冪與模運算（矩陣快速冪 / 乘法逆元） | Python / C++ | [`2026-09-30/modular-fast-power`](2026-09-30/modular-fast-power) |
