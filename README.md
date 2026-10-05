@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-05 | LCA 最近公共祖先（倍增 / 歐拉序 RMQ / k 級祖先） | Python / C++ | [`2026-10-05/lowest-common-ancestor`](2026-10-05/lowest-common-ancestor) |
+| 2026-10-05 | Prim 最小生成樹（樸素 O(V²) / 堆優化 + Kruskal 對拍） | Python / C++ | [`2026-10-05/prim-mst`](2026-10-05/prim-mst) |
+| 2026-10-05 | 開放尋址哈希表與 LRU Cache（三種探測 / 墓碑 / 再散列） | Python / C++ | [`2026-10-05/hash-table-open-addressing`](2026-10-05/hash-table-open-addressing) |
 | 2026-10-02 | 背包變體：多重背包 / 完全背包 / 最少件數 | Python / C++ | [`2026-10-02/knapsack-complete-multiple`](2026-10-02/knapsack-complete-multiple) |
 | 2026-10-02 | Manacher 最長回文子串（回文半徑 / 子串計數） | Python / C++ | [`2026-10-02/manacher-palindrome`](2026-10-02/manacher-palindrome) |
 | 2026-10-02 | 差分陣列與前綴和（區間加 / 子矩陣求和 / 和為 k 的子數組） | Python / C++ | [`2026-10-02/difference-array-prefix-sum`](2026-10-02/difference-array-prefix-sum) |
