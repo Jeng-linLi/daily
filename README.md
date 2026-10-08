@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-08 | 數位 DP（數位和計數 / 禁用數字 / Lucky / Windy / 不要 62） | Python / C++ | [`2026-10-08/digit-dp`](2026-10-08/digit-dp) |
+| 2026-10-08 | 後綴陣列（倍增構造 + Kasai LCP / 最長重複子串 / BWT） | Python / C++ | [`2026-10-08/suffix-array`](2026-10-08/suffix-array) |
+| 2026-10-08 | Dinic 最大流與二分圖匹配（最小割 / 匈牙利算法） | Python / C++ | [`2026-10-08/max-flow-dinic`](2026-10-08/max-flow-dinic) |
 | 2026-10-07 | 樹形 DP 與換根 DP（最大獨立集 / 直徑 / 重心 / 距離統計） | Python / C++ | [`2026-10-07/tree-dp-rerooting`](2026-10-07/tree-dp-rerooting) |
 | 2026-10-07 | 狀態壓縮 DP（TSP / 哈密頓路徑 / 集合劃分 / SOS DP） | Python / C++ | [`2026-10-07/bitmask-dp-tsp`](2026-10-07/bitmask-dp-tsp) |
 | 2026-10-07 | Rabin-Karp 與滾動哈希（最長公共子串 / 最長回文 / k-gram 相似度） | Python / C++ | [`2026-10-07/rabin-karp-string-hash`](2026-10-07/rabin-karp-string-hash) |
