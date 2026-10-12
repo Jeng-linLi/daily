@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-12 | 計算幾何凸包（Andrew / Jarvis / Graham + 旋轉卡殼） | Python / C++ | [`2026-10-12/convex-hull`](2026-10-12/convex-hull) |
+| 2026-10-12 | 2-SAT（蘊含圖 + SCC + 構造解 / 兩時段排程） | Python / C++ | [`2026-10-12/two-sat`](2026-10-12/two-sat) |
+| 2026-10-12 | Aho-Corasick 多模式串匹配（Trie + fail + 轉移表） | Python / C++ | [`2026-10-12/aho-corasick`](2026-10-12/aho-corasick) |
 | 2026-10-08 | 數位 DP（數位和計數 / 禁用數字 / Lucky / Windy / 不要 62） | Python / C++ | [`2026-10-08/digit-dp`](2026-10-08/digit-dp) |
 | 2026-10-08 | 後綴陣列（倍增構造 + Kasai LCP / 最長重複子串 / BWT） | Python / C++ | [`2026-10-08/suffix-array`](2026-10-08/suffix-array) |
 | 2026-10-08 | Dinic 最大流與二分圖匹配（最小割 / 匈牙利算法） | Python / C++ | [`2026-10-08/max-flow-dinic`](2026-10-08/max-flow-dinic) |
