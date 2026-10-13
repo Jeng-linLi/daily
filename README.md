@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-13 | 高斯消元（GF(p) 線性方程組 / GF(2) XOR 線性基） | Python / C++ | [`2026-10-13/gauss-elimination`](2026-10-13/gauss-elimination) |
+| 2026-10-13 | 最小費用最大流（SSP + SPFA / Dijkstra 勢能 / 指派問題） | Python / C++ | [`2026-10-13/min-cost-max-flow`](2026-10-13/min-cost-max-flow) |
+| 2026-10-13 | 後綴自動機（不同子串數 / 最長公共子串 / 第 k 小子串） | Python / C++ | [`2026-10-13/suffix-automaton`](2026-10-13/suffix-automaton) |
 | 2026-10-12 | 計算幾何凸包（Andrew / Jarvis / Graham + 旋轉卡殼） | Python / C++ | [`2026-10-12/convex-hull`](2026-10-12/convex-hull) |
 | 2026-10-12 | 2-SAT（蘊含圖 + SCC + 構造解 / 兩時段排程） | Python / C++ | [`2026-10-12/two-sat`](2026-10-12/two-sat) |
 | 2026-10-12 | Aho-Corasick 多模式串匹配（Trie + fail + 轉移表） | Python / C++ | [`2026-10-12/aho-corasick`](2026-10-12/aho-corasick) |
