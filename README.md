@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-14 | Treap（旋轉版 / FHQ split-merge / 隱式 Treap 區間翻轉） | Python / C++ | [`2026-10-14/treap`](2026-10-14/treap) |
+| 2026-10-14 | 莫隊算法（區間查詢奇偶優化 / 帶修莫隊三維排序） | Python / C++ | [`2026-10-14/mo-algorithm`](2026-10-14/mo-algorithm) |
+| 2026-10-14 | CDQ 分治（逆序對 / 三維偏序 / 分治優化 DP） | Python / C++ | [`2026-10-14/cdq-divide-conquer`](2026-10-14/cdq-divide-conquer) |
 | 2026-10-13 | 高斯消元（GF(p) 線性方程組 / GF(2) XOR 線性基） | Python / C++ | [`2026-10-13/gauss-elimination`](2026-10-13/gauss-elimination) |
 | 2026-10-13 | 最小費用最大流（SSP + SPFA / Dijkstra 勢能 / 指派問題） | Python / C++ | [`2026-10-13/min-cost-max-flow`](2026-10-13/min-cost-max-flow) |
 | 2026-10-13 | 後綴自動機（不同子串數 / 最長公共子串 / 第 k 小子串） | Python / C++ | [`2026-10-13/suffix-automaton`](2026-10-13/suffix-automaton) |
