@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-15 | 凸包優化與李超線段樹（斜率優化 DP / 單調凸包 dq-CHT） | Python / C++ | [`2026-10-15/convex-hull-trick`](2026-10-15/convex-hull-trick) |
+| 2026-10-15 | 伸展樹 Splay（zig / zig-zig / zig-zag，插入刪除排名前驅後繼） | Python / C++ | [`2026-10-15/splay-tree`](2026-10-15/splay-tree) |
+| 2026-10-15 | Z 函數與擴展 KMP（Z 陣列 / 模式匹配 / 最短週期） | Python / C++ | [`2026-10-15/z-function`](2026-10-15/z-function) |
 | 2026-10-14 | Treap（旋轉版 / FHQ split-merge / 隱式 Treap 區間翻轉） | Python / C++ | [`2026-10-14/treap`](2026-10-14/treap) |
 | 2026-10-14 | 莫隊算法（區間查詢奇偶優化 / 帶修莫隊三維排序） | Python / C++ | [`2026-10-14/mo-algorithm`](2026-10-14/mo-algorithm) |
 | 2026-10-14 | CDQ 分治（逆序對 / 三維偏序 / 分治優化 DP） | Python / C++ | [`2026-10-14/cdq-divide-conquer`](2026-10-14/cdq-divide-conquer) |
