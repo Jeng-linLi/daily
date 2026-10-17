@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-17 | Miller-Rabin 質數測試與 Pollard-Rho 因數分解（φ / σ / τ） | Python / C++ | [`2026-10-17/miller-rabin-pollard-rho`](2026-10-17/miller-rabin-pollard-rho) |
+| 2026-10-17 | A* 與 IDA*（網格尋路 / 帶權圖 / 八碼難題） | Python / C++ | [`2026-10-17/a-star-search`](2026-10-17/a-star-search) |
+| 2026-10-17 | 基環樹與函數圖（環檢測 / 二進制跳躍 / 基環樹直徑） | Python / C++ | [`2026-10-17/functional-graph`](2026-10-17/functional-graph) |
 | 2026-10-15 | 凸包優化與李超線段樹（斜率優化 DP / 單調凸包 dq-CHT） | Python / C++ | [`2026-10-15/convex-hull-trick`](2026-10-15/convex-hull-trick) |
 | 2026-10-15 | 伸展樹 Splay（zig / zig-zig / zig-zag，插入刪除排名前驅後繼） | Python / C++ | [`2026-10-15/splay-tree`](2026-10-15/splay-tree) |
 | 2026-10-15 | Z 函數與擴展 KMP（Z 陣列 / 模式匹配 / 最短週期） | Python / C++ | [`2026-10-15/z-function`](2026-10-15/z-function) |
