@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-19 | 最大團與 Bron–Kerbosch（樞軸剪枝 / 貪心著色上界 / 補圖獨立集） | Python / C++ | [`2026-10-19/bron-kerbosch-max-clique`](2026-10-19/bron-kerbosch-max-clique) |
+| 2026-10-19 | 中國剩餘定理與擴展 CRT（線性同餘 / 大數還原） | Python / C++ | [`2026-10-19/chinese-remainder-theorem`](2026-10-19/chinese-remainder-theorem) |
+| 2026-10-19 | 跳表 Skip List（span 跨度 / 排名查詢 / 自製 LCG） | Python / C++ | [`2026-10-19/skip-list`](2026-10-19/skip-list) |
 | 2026-10-17 | Miller-Rabin 質數測試與 Pollard-Rho 因數分解（φ / σ / τ） | Python / C++ | [`2026-10-17/miller-rabin-pollard-rho`](2026-10-17/miller-rabin-pollard-rho) |
 | 2026-10-17 | A* 與 IDA*（網格尋路 / 帶權圖 / 八碼難題） | Python / C++ | [`2026-10-17/a-star-search`](2026-10-17/a-star-search) |
 | 2026-10-17 | 基環樹與函數圖（環檢測 / 二進制跳躍 / 基環樹直徑） | Python / C++ | [`2026-10-17/functional-graph`](2026-10-17/functional-graph) |
