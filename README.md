@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-20 | K-D Tree（2 維空間搜尋：最近鄰 / k 近鄰 / 矩形與半徑計數） | Python / C++ | [`2026-10-20/kd-tree`](2026-10-20/kd-tree) |
+| 2026-10-20 | Dancing Links 與精確覆蓋（Algorithm X / 數獨求解） | Python / C++ | [`2026-10-20/dancing-links-exact-cover`](2026-10-20/dancing-links-exact-cover) |
+| 2026-10-20 | 替罪羊樹 Scapegoat Tree（權重平衡 / 不旋轉的子樹重建） | Python / C++ | [`2026-10-20/scapegoat-tree`](2026-10-20/scapegoat-tree) |
 | 2026-10-19 | 最大團與 Bron–Kerbosch（樞軸剪枝 / 貪心著色上界 / 補圖獨立集） | Python / C++ | [`2026-10-19/bron-kerbosch-max-clique`](2026-10-19/bron-kerbosch-max-clique) |
 | 2026-10-19 | 中國剩餘定理與擴展 CRT（線性同餘 / 大數還原） | Python / C++ | [`2026-10-19/chinese-remainder-theorem`](2026-10-19/chinese-remainder-theorem) |
 | 2026-10-19 | 跳表 Skip List（span 跨度 / 排名查詢 / 自製 LCG） | Python / C++ | [`2026-10-19/skip-list`](2026-10-19/skip-list) |
