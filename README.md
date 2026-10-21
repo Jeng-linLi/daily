@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-21 | 弦圖與完美消除序列（MCS / Lex-BFS / ω·χ·α 線性求解） | Python / C++ | [`2026-10-21/chordal-graph`](2026-10-21/chordal-graph) |
+| 2026-10-21 | 表達式求值（調度場算法 / 前後綴互轉 / 精確有理數） | Python / C++ | [`2026-10-21/expression-evaluation`](2026-10-21/expression-evaluation) |
+| 2026-10-21 | Link-Cut Tree（動態樹：加邊刪邊 / 路徑查詢與修改） | Python / C++ | [`2026-10-21/link-cut-tree`](2026-10-21/link-cut-tree) |
 | 2026-10-20 | K-D Tree（2 維空間搜尋：最近鄰 / k 近鄰 / 矩形與半徑計數） | Python / C++ | [`2026-10-20/kd-tree`](2026-10-20/kd-tree) |
 | 2026-10-20 | Dancing Links 與精確覆蓋（Algorithm X / 數獨求解） | Python / C++ | [`2026-10-20/dancing-links-exact-cover`](2026-10-20/dancing-links-exact-cover) |
 | 2026-10-20 | 替罪羊樹 Scapegoat Tree（權重平衡 / 不旋轉的子樹重建） | Python / C++ | [`2026-10-20/scapegoat-tree`](2026-10-20/scapegoat-tree) |
