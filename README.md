@@ -8,6 +8,11 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-26 | FWT 快速沃爾什變換（XOR / OR / AND 位運算卷積） | Python / C++ | [`2026-10-26/fast-walsh-hadamard-transform`](2026-10-26/fast-walsh-hadamard-transform) |
+| 2026-10-26 | 帶權併查集（關係推斷 / 食物鏈 / 擴展域建模） | Python / C++ | [`2026-10-26/weighted-union-find`](2026-10-26/weighted-union-find) |
+| 2026-10-26 | 可持久化線段樹（主席樹：區間第 k 小 / 前驅 / 後繼） | Python / C++ | [`2026-10-26/persistent-segment-tree`](2026-10-26/persistent-segment-tree) |
+| 2026-10-23 | 半平面交（HPI：精確有理數 / 三種算法交叉驗證） | Python / C++ | [`2026-10-23/half-plane-intersection`](2026-10-23/half-plane-intersection) |
+| 2026-10-23 | 樹上莫隊與迴滾莫隊（歐拉序展平 / 只加不減 / 棧回滾） | Python / C++ | [`2026-10-23/tree-mo-rollback`](2026-10-23/tree-mo-rollback) |
 | 2026-10-21 | 弦圖與完美消除序列（MCS / Lex-BFS / ω·χ·α 線性求解） | Python / C++ | [`2026-10-21/chordal-graph`](2026-10-21/chordal-graph) |
 | 2026-10-21 | 表達式求值（調度場算法 / 前後綴互轉 / 精確有理數） | Python / C++ | [`2026-10-21/expression-evaluation`](2026-10-21/expression-evaluation) |
 | 2026-10-21 | Link-Cut Tree（動態樹：加邊刪邊 / 路徑查詢與修改） | Python / C++ | [`2026-10-21/link-cut-tree`](2026-10-21/link-cut-tree) |
