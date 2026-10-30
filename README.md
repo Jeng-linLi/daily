@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-10-30 | 虛擬樹 Virtual Tree（DFS 序 + 倍增 LCA + O(k) 壓縮樹） | Python / C++ | [`2026-10-30/virtual-tree`](2026-10-30/virtual-tree) |
+| 2026-10-30 | 樹上啟發式合併 DSU on Tree（重輕劃分 / Sack / 子樹顏色統計） | Python / C++ | [`2026-10-30/dsu-on-tree`](2026-10-30/dsu-on-tree) |
+| 2026-10-30 | 掃描線 + 線段樹（軸對齊矩形聯集面積 / 覆蓋長度維護） | Python / C++ | [`2026-10-30/sweep-line-rectangle-area`](2026-10-30/sweep-line-rectangle-area) |
 | 2026-10-26 | FWT 快速沃爾什變換（XOR / OR / AND 位運算卷積） | Python / C++ | [`2026-10-26/fast-walsh-hadamard-transform`](2026-10-26/fast-walsh-hadamard-transform) |
 | 2026-10-26 | 帶權併查集（關係推斷 / 食物鏈 / 擴展域建模） | Python / C++ | [`2026-10-26/weighted-union-find`](2026-10-26/weighted-union-find) |
 | 2026-10-26 | 可持久化線段樹（主席樹：區間第 k 小 / 前驅 / 後繼） | Python / C++ | [`2026-10-26/persistent-segment-tree`](2026-10-26/persistent-segment-tree) |
