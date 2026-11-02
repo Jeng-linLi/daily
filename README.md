@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-02 | 莫比烏斯反演 Möbius Inversion（帶權容斥 / gcd 恰好為 g 的數對數 / 倍數列舉） | Python / C++ | [`2026-11-02/mobius-inversion`](2026-11-02/mobius-inversion) |
+| 2026-11-02 | 線段樹合併 Segment Tree Merge（動態開點值域樹 / 樹上子樹相異值統計） | Python / C++ | [`2026-11-02/segment-tree-merge`](2026-11-02/segment-tree-merge) |
+| 2026-11-02 | 整體二分 Overall Binary Search（離線值域分治 / 單點修改 + 區間第 k 小） | Python / C++ | [`2026-11-02/overall-binary-search`](2026-11-02/overall-binary-search) |
 | 2026-10-30 | 虛擬樹 Virtual Tree（DFS 序 + 倍增 LCA + O(k) 壓縮樹） | Python / C++ | [`2026-10-30/virtual-tree`](2026-10-30/virtual-tree) |
 | 2026-10-30 | 樹上啟發式合併 DSU on Tree（重輕劃分 / Sack / 子樹顏色統計） | Python / C++ | [`2026-10-30/dsu-on-tree`](2026-10-30/dsu-on-tree) |
 | 2026-10-30 | 掃描線 + 線段樹（軸對齊矩形聯集面積 / 覆蓋長度維護） | Python / C++ | [`2026-10-30/sweep-line-rectangle-area`](2026-10-30/sweep-line-rectangle-area) |
