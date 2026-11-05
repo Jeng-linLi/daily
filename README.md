@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-05 | KM 演算法：二分圖最大權完美匹配（頂標 / 相等子圖 / O(n³)） | Python / C++ | [`2026-11-05/km-weighted-bipartite-matching`](2026-11-05/km-weighted-bipartite-matching) |
+| 2026-11-05 | 帶花樹 Blossom：一般圖最大匹配（奇環收縮 / 交錯森林） | Python / C++ | [`2026-11-05/blossom-general-matching`](2026-11-05/blossom-general-matching) |
+| 2026-11-05 | 線段樹分治 + 可撤銷並查集（離線動態連通性） | Python / C++ | [`2026-11-05/segment-tree-divide-conquer`](2026-11-05/segment-tree-divide-conquer) |
 | 2026-11-04 | 重鏈剖分 HLD（樹上路徑加 / 路徑 max / 路徑和，O(log²n)） | Python / C++ | [`2026-11-04/heavy-light-decomposition`](2026-11-04/heavy-light-decomposition) |
 | 2026-11-04 | 區間 DP：合併石子與戳氣球（相鄰合併最小代價 / 最後戳破建模） | Python / C++ | [`2026-11-04/interval-dp-stones-balloons`](2026-11-04/interval-dp-stones-balloons) |
 | 2026-11-03 | 矩陣樹定理 Matrix-Tree Theorem（帶權生成樹計數 / 高斯消元行列式） | Python / C++ | [`2026-11-03/matrix-tree-theorem`](2026-11-03/matrix-tree-theorem) |
