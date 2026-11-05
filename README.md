@@ -8,6 +8,11 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-04 | 重鏈剖分 HLD（樹上路徑加 / 路徑 max / 路徑和，O(log²n)） | Python / C++ | [`2026-11-04/heavy-light-decomposition`](2026-11-04/heavy-light-decomposition) |
+| 2026-11-04 | 區間 DP：合併石子與戳氣球（相鄰合併最小代價 / 最後戳破建模） | Python / C++ | [`2026-11-04/interval-dp-stones-balloons`](2026-11-04/interval-dp-stones-balloons) |
+| 2026-11-03 | 矩陣樹定理 Matrix-Tree Theorem（帶權生成樹計數 / 高斯消元行列式） | Python / C++ | [`2026-11-03/matrix-tree-theorem`](2026-11-03/matrix-tree-theorem) |
+| 2026-11-03 | 可持久化 01-Trie（區間最大異或 / 前綴版本） | Python / C++ | [`2026-11-03/persistent-trie-xor`](2026-11-03/persistent-trie-xor) |
+| 2026-11-03 | 最小圓覆蓋 Smallest Enclosing Circle（Welzl / Move-to-Front） | Python / C++ | [`2026-11-03/smallest-enclosing-circle`](2026-11-03/smallest-enclosing-circle) |
 | 2026-11-02 | 莫比烏斯反演 Möbius Inversion（帶權容斥 / gcd 恰好為 g 的數對數 / 倍數列舉） | Python / C++ | [`2026-11-02/mobius-inversion`](2026-11-02/mobius-inversion) |
 | 2026-11-02 | 線段樹合併 Segment Tree Merge（動態開點值域樹 / 樹上子樹相異值統計） | Python / C++ | [`2026-11-02/segment-tree-merge`](2026-11-02/segment-tree-merge) |
 | 2026-11-02 | 整體二分 Overall Binary Search（離線值域分治 / 單點修改 + 區間第 k 小） | Python / C++ | [`2026-11-02/overall-binary-search`](2026-11-02/overall-binary-search) |
