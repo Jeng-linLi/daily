@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-06 | 同餘最短路（剩餘類建圖 + Dijkstra / 湊數查詢） | Python / C++ | [`2026-11-06/congruence-shortest-path`](2026-11-06/congruence-shortest-path) |
+| 2026-11-06 | 長鏈剖分 Long-Path Decomposition（O(1) 求 k 級祖先） | Python / C++ | [`2026-11-06/long-path-decomposition`](2026-11-06/long-path-decomposition) |
+| 2026-11-06 | 斯坦納樹 Steiner Tree（狀壓 DP + Dijkstra / 3^k 子集合併） | Python / C++ | [`2026-11-06/steiner-tree`](2026-11-06/steiner-tree) |
 | 2026-11-05 | KM 演算法：二分圖最大權完美匹配（頂標 / 相等子圖 / O(n³)） | Python / C++ | [`2026-11-05/km-weighted-bipartite-matching`](2026-11-05/km-weighted-bipartite-matching) |
 | 2026-11-05 | 帶花樹 Blossom：一般圖最大匹配（奇環收縮 / 交錯森林） | Python / C++ | [`2026-11-05/blossom-general-matching`](2026-11-05/blossom-general-matching) |
 | 2026-11-05 | 線段樹分治 + 可撤銷並查集（離線動態連通性） | Python / C++ | [`2026-11-05/segment-tree-divide-conquer`](2026-11-05/segment-tree-divide-conquer) |
