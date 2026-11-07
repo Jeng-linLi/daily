@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-07 | 歐拉路徑 / 歐拉迴路（Hierholzer 迭代 / 奇度點與度差判定） | Python / C++ | [`2026-11-07/eulerian-path`](2026-11-07/eulerian-path) |
+| 2026-11-07 | 雙連通分量（邊雙 / 點雙 / 橋 / 割點，迭代 Tarjan） | Python / C++ | [`2026-11-07/biconnected-components`](2026-11-07/biconnected-components) |
+| 2026-11-07 | NTT 快速數論變換（模 998244353 多項式乘法 / 位反轉 + 蝶形） | Python / C++ | [`2026-11-07/ntt-polynomial-multiply`](2026-11-07/ntt-polynomial-multiply) |
 | 2026-11-06 | 同餘最短路（剩餘類建圖 + Dijkstra / 湊數查詢） | Python / C++ | [`2026-11-06/congruence-shortest-path`](2026-11-06/congruence-shortest-path) |
 | 2026-11-06 | 長鏈剖分 Long-Path Decomposition（O(1) 求 k 級祖先） | Python / C++ | [`2026-11-06/long-path-decomposition`](2026-11-06/long-path-decomposition) |
 | 2026-11-06 | 斯坦納樹 Steiner Tree（狀壓 DP + Dijkstra / 3^k 子集合併） | Python / C++ | [`2026-11-06/steiner-tree`](2026-11-06/steiner-tree) |
