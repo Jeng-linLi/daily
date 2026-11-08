@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-08 | 回文自動機 Palindromic Tree（Eertree / fail 樹累加出現次數） | Python / C++ | [`2026-11-08/palindromic-tree`](2026-11-08/palindromic-tree) |
+| 2026-11-08 | 博弈論與 Sprague-Grundy 函數（mex DP / 拆分遊戲 / 組合遊戲和） | Python / C++ | [`2026-11-08/game-theory-sprague-grundy`](2026-11-08/game-theory-sprague-grundy) |
+| 2026-11-08 | 左偏樹 Leftist Heap（可合併堆 / O(log n) merge / dist 左偏性質） | Python / C++ | [`2026-11-08/leftist-heap`](2026-11-08/leftist-heap) |
 | 2026-11-07 | 歐拉路徑 / 歐拉迴路（Hierholzer 迭代 / 奇度點與度差判定） | Python / C++ | [`2026-11-07/eulerian-path`](2026-11-07/eulerian-path) |
 | 2026-11-07 | 雙連通分量（邊雙 / 點雙 / 橋 / 割點，迭代 Tarjan） | Python / C++ | [`2026-11-07/biconnected-components`](2026-11-07/biconnected-components) |
 | 2026-11-07 | NTT 快速數論變換（模 998244353 多項式乘法 / 位反轉 + 蝶形） | Python / C++ | [`2026-11-07/ntt-polynomial-multiply`](2026-11-07/ntt-polynomial-multiply) |
