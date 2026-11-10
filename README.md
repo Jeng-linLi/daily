@@ -8,6 +8,10 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-10 | 蓄水池抽樣 Reservoir Sampling（Algorithm R / 單遍均勻採樣 / O(k) 內存） | Python / C++ | [`2026-11-10/reservoir-sampling`](2026-11-10/reservoir-sampling) |
+| 2026-11-10 | Dilworth 定理（最小鏈覆蓋 = 最長反鏈 / LDS + 匹配雙驗證） | Python / C++ | [`2026-11-10/dilworth-chain-cover`](2026-11-10/dilworth-chain-cover) |
+| 2026-11-10 | 插頭 DP 輪廓線 DP（骨牌完全覆蓋計數 / O(n·m·2^m)） | Python / C++ | [`2026-11-10/plug-dp-domino`](2026-11-10/plug-dp-domino) |
+| 2026-11-09 | Stern-Brocot 樹與 Farey 數列（相鄰項遞推 / mediant walk / 交叉相乘精確比較） | Python / C++ | [`2026-11-09/stern-brocot-farey`](2026-11-09/stern-brocot-farey) |
 | 2026-11-08 | 回文自動機 Palindromic Tree（Eertree / fail 樹累加出現次數） | Python / C++ | [`2026-11-08/palindromic-tree`](2026-11-08/palindromic-tree) |
 | 2026-11-08 | 博弈論與 Sprague-Grundy 函數（mex DP / 拆分遊戲 / 組合遊戲和） | Python / C++ | [`2026-11-08/game-theory-sprague-grundy`](2026-11-08/game-theory-sprague-grundy) |
 | 2026-11-08 | 左偏樹 Leftist Heap（可合併堆 / O(log n) merge / dist 左偏性質） | Python / C++ | [`2026-11-08/leftist-heap`](2026-11-08/leftist-heap) |
