@@ -8,10 +8,20 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-18 | AVL 樹（自平衡 BST / LL·RR·LR·RL 旋轉 / rank·kth·前驅後繼 O(log n)） | Python / C++ | [`2026-11-18/avl-tree`](2026-11-18/avl-tree) |
+| 2026-11-18 | Hopcroft–Karp 二分圖最大匹配（BFS 分層 + DFS 增廣 / Kőnig 最小點覆蓋） | Python / C++ | [`2026-11-18/hopcroft-karp`](2026-11-18/hopcroft-karp) |
+| 2026-11-18 | Berlekamp–Massey 最短線性遞迴 + Kitamasa（O(k²) 還原 / O(L²log n) 求第 n 項） | Python / C++ | [`2026-11-18/berlekamp-massey-kitamasa`](2026-11-18/berlekamp-massey-kitamasa) |
+| 2026-11-14 | Lyndon 分解（Duval 演算法 / 循環串最小最大表示 Booth 演算法） | Python / C++ | [`2026-11-14/lyndon-duval-booth`](2026-11-14/lyndon-duval-booth) |
+| 2026-11-12 | 點分治（樹上長度恰為 k 的路徑計數） | Python / C++ | [`2026-11-12/centroid-decomposition`](2026-11-12/centroid-decomposition) |
+| 2026-11-11 | 樹雜湊與樹同構判定（AHU / 重心為根典範雜湊） | Python / C++ | [`2026-11-11/tree-hash-isomorphism`](2026-11-11/tree-hash-isomorphism) |
+| 2026-11-11 | SMAWK 演算法（完全單調矩陣逐列最小值） | Python / C++ | [`2026-11-11/smawk-row-minima`](2026-11-11/smawk-row-minima) |
+| 2026-11-11 | 費波那契堆 Fibonacci Heap（攤還 O(1) decrease-key） | Python / C++ | [`2026-11-11/fibonacci-heap`](2026-11-11/fibonacci-heap) |
 | 2026-11-10 | 蓄水池抽樣 Reservoir Sampling（Algorithm R / 單遍均勻採樣 / O(k) 內存） | Python / C++ | [`2026-11-10/reservoir-sampling`](2026-11-10/reservoir-sampling) |
 | 2026-11-10 | Dilworth 定理（最小鏈覆蓋 = 最長反鏈 / LDS + 匹配雙驗證） | Python / C++ | [`2026-11-10/dilworth-chain-cover`](2026-11-10/dilworth-chain-cover) |
 | 2026-11-10 | 插頭 DP 輪廓線 DP（骨牌完全覆蓋計數 / O(n·m·2^m)） | Python / C++ | [`2026-11-10/plug-dp-domino`](2026-11-10/plug-dp-domino) |
 | 2026-11-09 | Stern-Brocot 樹與 Farey 數列（相鄰項遞推 / mediant walk / 交叉相乘精確比較） | Python / C++ | [`2026-11-09/stern-brocot-farey`](2026-11-09/stern-brocot-farey) |
+| 2026-11-09 | 配對堆 Pairing Heap（合併 O(1) / decrease-key 切割） | Python / C++ | [`2026-11-09/pairing-heap`](2026-11-09/pairing-heap) |
+| 2026-11-09 | 最優二叉搜尋樹 Optimal BST（Knuth 優化 O(n²)） | Python / C++ | [`2026-11-09/optimal-bst`](2026-11-09/optimal-bst) |
 | 2026-11-08 | 回文自動機 Palindromic Tree（Eertree / fail 樹累加出現次數） | Python / C++ | [`2026-11-08/palindromic-tree`](2026-11-08/palindromic-tree) |
 | 2026-11-08 | 博弈論與 Sprague-Grundy 函數（mex DP / 拆分遊戲 / 組合遊戲和） | Python / C++ | [`2026-11-08/game-theory-sprague-grundy`](2026-11-08/game-theory-sprague-grundy) |
 | 2026-11-08 | 左偏樹 Leftist Heap（可合併堆 / O(log n) merge / dist 左偏性質） | Python / C++ | [`2026-11-08/leftist-heap`](2026-11-08/leftist-heap) |
