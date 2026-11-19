@@ -8,6 +8,9 @@
 
 | 日期 | 主題 | 語言 | 目錄 |
 |---|---|---|---|
+| 2026-11-19 | Stoer–Wagner 全局最小割（最大權相鄰生長 / O(n³) 合併頂點 / 網路分割） | Python / C++ | [`2026-11-19/stoer-wagner-min-cut`](2026-11-19/stoer-wagner-min-cut) |
+| 2026-11-19 | 支配樹 Lengauer–Tarjan（半支配點 / eval-link 路徑壓縮 / 控制流分析） | Python / C++ | [`2026-11-19/dominator-tree`](2026-11-19/dominator-tree) |
+| 2026-11-19 | Gomory–Hu 等價流樹（n-1 次最小割 / 點對最小割 = 樹上路徑最小邊） | Python / C++ | [`2026-11-19/gomory-hu-tree`](2026-11-19/gomory-hu-tree) |
 | 2026-11-18 | AVL 樹（自平衡 BST / LL·RR·LR·RL 旋轉 / rank·kth·前驅後繼 O(log n)） | Python / C++ | [`2026-11-18/avl-tree`](2026-11-18/avl-tree) |
 | 2026-11-18 | Hopcroft–Karp 二分圖最大匹配（BFS 分層 + DFS 增廣 / Kőnig 最小點覆蓋） | Python / C++ | [`2026-11-18/hopcroft-karp`](2026-11-18/hopcroft-karp) |
 | 2026-11-18 | Berlekamp–Massey 最短線性遞迴 + Kitamasa（O(k²) 還原 / O(L²log n) 求第 n 項） | Python / C++ | [`2026-11-18/berlekamp-massey-kitamasa`](2026-11-18/berlekamp-massey-kitamasa) |
